@@ -1,0 +1,30 @@
+<div class="container py-3">
+    <div class="row">
+        <div class="title h1 text-center">Java Questions</div>
+    </div>
+    <!-- Card Start -->
+    <div class="row gy-3">
+        @for(question of questions;track $index){
+        <div class="col-md-12 p-3 card">
+            <div class="card-block px-6">
+                <p class="card-text">
+                    {{($index+1) +"."+ question.question}}
+                </p>
+                <p class="card-text">
+                    {{"A."+ question.answer}}
+                </p>
+                <div class="d-flex justify-content-end gap-2">
+                    <button class="btn btn-primary" (click)="update(question)">Update</button>
+                    <button class="btn btn-danger d-flex justify-content-end"
+                        (click)="deleteQuestion(question.quesid)">Delete</button>
+                </div>
+            </div>
+        </div>
+        }
+        
+    </div>
+    <!-- End of card -->
+    <div class="row d-flex justify-content-end mt-3">
+        <button type="submit" class="btn btn-primary" (click)="adminLogout()">Please Click here to go back login page</button>
+    </div>
+</div>

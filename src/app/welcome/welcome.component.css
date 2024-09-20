@@ -1,0 +1,4 @@
+.btn-position{
+  display: flex;
+  justify-content: space-between;
+}

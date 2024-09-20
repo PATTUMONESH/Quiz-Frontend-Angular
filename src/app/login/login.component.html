@@ -1,0 +1,68 @@
+<div class="container HeightMax">
+  <div class="row d-flex  justify-content-center align-items-center rowHeight">
+    <div class="col-sm-4">
+      <form [formGroup]="loginForm">
+
+        <div class="card p-3">
+          <label for="inputEmail4" class="form-label">Email</label> 
+          <input type="email" class="form-control" placeholder="enter your email" id="inputEmail4" formControlName="email">
+            <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched  || loginForm.get('email')?.dirty)" class="text-danger">
+              <div *ngIf="loginForm.get('email')?.errors">Email is required.</div>
+              <div *ngIf="loginForm.get('email')?.errors">Please enter a valid email address.</div>
+            </div>
+
+
+          <div class="mt-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="enter your password" aria-label="password" formControlName="password">
+             <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched    || loginForm.get('password')?.dirty)" class="text-danger">
+                <div *ngIf="loginForm.get('password')?.errors">Password is required.</div>
+              </div>
+
+          </div>
+          <div class="mt-4 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary w-100" (click)="onLogin()">Sign In</button>
+          </div>
+          <div class="mt-2 d-flex justify-content-center">
+            <p>Not yet Register? <a href="https://www.w3schools.com" routerLink="/register">Sign Up</a></p>
+          </div>
+
+          <!-- <div *ngIf="loginError" class="mt-3 text-danger text-center">
+            {{ loginError }}
+          </div> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="name col-md-4 my-3">
+  <label for="">Enter your name</label> -->
+
+<!-- #name is template reference variable -->
+<!-- <input #name type="text" class="form-control">
+</div> -->
+
+
+
+
+<!-- <button class="btn btn-primary btn-large" routerLink="/welcome" (click)="onStartQuiz()">Start the Quiz!!!</button> -->

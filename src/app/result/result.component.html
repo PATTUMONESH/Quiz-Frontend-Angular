@@ -1,0 +1,47 @@
+<div class="container mt-5">
+    <div class="card">
+        <div class="d-flex justify-content-between p-3">
+            <div class="image">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJM20yH-agJqq06pyg1jc1OZJ8KAAQtklhCA&s"
+                    width="90" alt="logo">
+            </div>
+            <div class="quiz-header d-flex align-items-center" style="margin-bottom: 0px;">
+                <h4 style="font-family: cursive">Java Quiz!</h4>
+            </div>
+        </div>
+
+<div class="container d-flex flex-column gap-3">
+            <div class="row imageSpace">
+                <div style="margin-bottom: 0px">
+                    <h3><b>Congratulations</b><br>You have completed the quiz.</h3>
+                </div>
+                <p class="blink">Please check your register mail for Results</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table table-bordered  table-striped ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Total Question</th>
+                                <th scope="col">Total AttemptedQuestions</th>
+                                <th scope="col">Total Unattempted Question</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="row">{{questionListLength()}}</td>
+                                <td scope="row">{{quizResults.visitedQues}}</td>
+                                <td scope="row">{{quizResults.notVisited}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary" (click)="onLogout()">Please Click here to Exit Exam</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

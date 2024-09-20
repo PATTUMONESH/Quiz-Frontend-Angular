@@ -1,0 +1,72 @@
+<div class="container">
+  <form [formGroup]="profileForm">
+
+    <div class="row mt-3">
+      <div class="row gy-3">
+        <div class="col-sm-4">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="firstName" placeholder="enter first name" aria-label="First name"
+            formControlName="firstName">
+        </div>
+
+        <div class="col-sm-4">
+          <label for="lastName">Last Name</label>
+          <input type="text" class="form-control" id="lastName" placeholder="enter last name" aria-label="Last name"
+            formControlName="lastName">
+        </div>
+
+        <div class="col-sm-4">
+          <label for="gender">Gender</label>
+          <select class="form-select" aria-label="Default select example" id="gender" formControlName="gender">
+            <option selected disabled>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="enter Email" aria-label="last name"
+            formControlName="email">
+        </div>
+
+        <div class="col-sm-4">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="enter password" aria-label="Last name"
+            formControlName="password">
+        </div>
+
+        <div class="col-sm-4">
+          <label for="Phno">Phone Number</label>
+          <input type="number" id="Phno" class="form-control" placeholder="Last name" aria-label="Last name"
+            formControlName="phno">
+        </div>
+
+        <div class="col-sm-4">
+          <label for="address">Address</label>
+          <textarea class="form-control" id="address" placeholder="enter address" aria-label="Address"
+            formControlName="address"></textarea>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="Role">Role</label>
+          <select class="form-select" aria-label="Default select example" id="Role" formControlName="roleId">
+            <option selected disabled>Select Role</option>
+            <option value=1>User</option>
+            <!-- <option value=2>Admin</option> -->
+        
+          </select>
+        </div>
+
+      </div>
+
+      <div class="row mt-2 d-flex justify-content-end">
+        <div class="col-sm-1">
+          <!-- <button type="submit" class="btn btn-primary" (click)="onRegisterForm()">Register</button> -->
+          <button type="submit" class="btn btn-primary" (click)="onSubmit()">Register</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
