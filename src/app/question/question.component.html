@@ -32,18 +32,8 @@ mode="determinate"
 color="primary"
 class="mb-2"
 ></mat-progress-bar>
-
-
-
-
-
-     <div>
-
-     </div>
-    
-
-
-
+<div>
+</div>
     <div class="question">
       <div class="card">
         <h3>{{currentQuestion+1}}.{{questionList[currentQuestion]?.question}}</h3>
@@ -59,22 +49,23 @@ class="mb-2"
           </button>
         </li>
 
+
         <li class="card" (click)="answer(questionList[currentQuestion]?.option2)">
-          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option2 }" class="card"
+          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option2 }"class="card"
             style="width:100%">
             B.{{questionList[currentQuestion]?.option2}}
           </button>
         </li>
 
         <li class="card" (click)="answer(questionList[currentQuestion]?.option3)">
-          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option3 }" class="card"
+          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option3 }"  class="card"
             style="width:100%">
             C.{{questionList[currentQuestion]?.option3}}
           </button>
         </li>
 
         <li class="card" (click)="answer(questionList[currentQuestion]?.option4)">
-          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option4}" class="card"
+          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option4}"  class="card"
             style="width:100%">
             D.{{questionList[currentQuestion]?.option4}}
           </button>
@@ -83,8 +74,12 @@ class="mb-2"
       </ol>
     </div>
     <div class="d-flex justify-content-end ">
+
+     
+      <button mat-button class="btn" *ngIf="currentQuestion > 0 && !isLoading" (click)="previousQuestion(questionList[currentQuestion-1]?.quesid)">Back</button>
+
       <button mat-button class="btn" *ngIf="!isLoading"
-        (click)="nextQuestion(selectedOption, questionList[currentQuestion]?.quesid)">{{currentQuestion===questionList.length-1?"submit":"next"}}</button>
+        (click)="currentQuestion===questionList.length-1? onSubmitQuiz(): nextQuestion(selectedOption, questionList[currentQuestion]?.quesid)">{{currentQuestion===questionList.length-1?"Submit":"Next"}}</button>
       <!-- <button mat-button class="btn"  (click)="currentQuestion === questionList.length - 1 ? onSubmitQuiz() : nextQuestion(selectedOption, questionList[currentQuestion]?.quesid)"> {{currentQuestion === questionList.length - 1 ? 'Submit' : 'Next'}} </button> -->
     </div>
     <div class="spinner-overlay" *ngIf="isLoading">

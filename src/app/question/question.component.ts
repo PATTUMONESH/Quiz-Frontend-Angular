@@ -10,6 +10,7 @@ import { SharedQuizService } from '../shared-quiz.service';
   styleUrls: ['./question.component.scss'],
 })
 export class QuestionComponent implements OnInit {
+
   constructor(private questionService: QuestionService, private route: Router,private quizResultsService:QuizResultServiceService,private questionListLengthService:SharedQuizService) { }
   
   public userId?:any;
@@ -21,12 +22,17 @@ export class QuestionComponent implements OnInit {
   
   isLastQuestion: boolean = false;
   isLoading: boolean = false;
-  public selectedAnswers: { [key: string]: any } = {};
+
+  
+  public selectedAnswers: Map<any, any> = new Map<any, any>();
+//public selectedAnswers: { [key: string]: any } = {};
+
+  
   isQuizCompleted: boolean = false;
   isOptionSelected: boolean = false;
   selectedOption:string='';
   progress: number = 0; // Progress percentage
-  totalTime: number = 100; // Total time in seconds (e.g., 10 minutes)
+  totalTime: number = 20; // Total time in seconds (e.g., 10 minutes)
   timer: any;
   minutes: number = 10;
   seconds: number = 0;
@@ -101,43 +107,183 @@ answer(selectedOption: any) {
         console.log(selectedOption);
         this.selectedOption=selectedOption;
       }
-
-nextQuestion(selectedOption:any,quesId:any) {
-       // console.log(`${selectedOption} ${quesId}`); 
-       this.selectedAnswers[quesId] = selectedOption;
-       this.selectedOption = "";
-       console.log(this.selectedAnswers);
-       console.log(this.questionList.length);
-        console.log(this.currentQuestion);
-      //  console.log(this.questionList);
-        if (this.currentQuestion === (this.questionList.length -1)) {
-        // this.isLastQuestion = true;
-         // Last question reached
-         this.onSubmitQuiz();
-      } else {
-        this.currentQuestion++; // Move to the next question
-      }
-     this.progress=((this.currentQuestion+1)/this.questionList.length)*100;
-      console.log('Progress:',this.progress);
       
+
+// nextQuestion(selectedOption:any,quesId:any) {
+//        // console.log(`${selectedOption} ${quesId}`); 
+   
+
+//        this.selectedOption=this.selectedAnswers[quesId]||'';
+//        this.selectedAnswers[quesId] = selectedOption;
+//        console.log(`Stored selectedAnswer for quesId ${quesId}:`, this.selectedAnswers[quesId]);
+//     //  this.selectedOption = "";
+     
+//       console.log(this.selectedAnswers);
+
+
+//        console.log(this.questionList.length);
+//         console.log(this.currentQuestion);
+//         console.log(this.selectedAnswers);
+//         console.log(quesId);
+//         console.log(selectedOption);
+
+
+//         console.log(this.questionList[this.currentQuestion+1]);
+//         console.log(this.questionList[this.currentQuestion+1].quesid);
+//         // this.selOpt=this.selectedAnswers[this.questionList[this.currentQuestion+1].quesid];
+        
+        
+//         console.log(this.selectedAnswers[quesId]);
+      
+//       //  console.log(this.questionList);
+//         if (this.currentQuestion === (this.questionList.length -1)) {
+//         // this.isLastQuestion = true;
+//          // Last question reached
+//          this.onSubmitQuiz();
+//       } else {
+//         this.currentQuestion++; // Move to the next question
+        
+//       }
+     
+//      this.progress=((this.currentQuestion+1)/this.questionList.length)*100;
+//       console.log('Progress:',this.progress);
+//       }
+
+
+nextQuestion(option: string, quesId: any) {
+  // Save the selected option before moving to the next question
+  this.selectedAnswers.set(quesId, option);
+ 
+  
+  // Proceed to the next question
+  if (this.currentQuestion < this.questionList.length - 1) {
+    this.currentQuestion++;
+  }
+
+  // Retrieve the selected answer for the next question
+  const nextQuesId = this.questionList[this.currentQuestion]?.quesid;
+  if (this.selectedAnswers.has(nextQuesId)) {
+    this.selectedOption = this.selectedAnswers.get(nextQuesId) as string;  // Set the selected option if available
+  } else {
+    this.selectedOption = '';  // Reset if no answer was selected for the next question
+  }
+  this.progress=((this.currentQuestion+1)/this.questionList.length)*100;
+//       console.log('Progress:',this.progress);
 }
+
+previousQuestion(quesId: number) {
+  this.currentQuestion--;  // Move to the previous question
+  console.log(quesId);
+  
+
+  // Retrieve the selected answer for the previous question
+  const prevQuesId = this.questionList[this.currentQuestion]?.quesid;
+  if (this.selectedAnswers.has(prevQuesId)) {
+    this.selectedOption = this.selectedAnswers.get(prevQuesId) as string;  // Set the selected option if available
+  } else {
+    this.selectedOption = '';  // Reset if no answer was selected for the previous question
+  }
+  this.progress=((this.currentQuestion+1)/this.questionList.length)*100;
+}
+
+
+// previousQuestion(quesId:any)
+// {
+//   console.log(quesId);
+// console.log(this.selectedAnswers);
+
+// }
+
+
+
+
+
+// previousQuestion(quesid:any) {
+//   console.log(this.selectedAnswers); 
+//   console.log(this.questionList);
+//   console.log(quesid); //34
+//   if(this.currentQuestion>0){
+// this.currentQuestion--; //move to the previous question
+// // const previousQuestionId=this.questionList[this.currentQuestion]?.quesId;
+// console.log('Selected answers object:', this.selectedAnswers);
+// console.log(this.selectedOption);
+// //set the selected option to the previous seleceted answer
+// this.selectedOption=this.selectedAnswers[quesid] || '';
+// console.log(`Restored answer for quesId ${quesid}:`, this.selectedOption);
+// this.progress=((this.currentQuestion+1)/this.questionList.length)*100;
+// }
+// }
+
+
+
+
+
+
 //correct
-  onSubmitQuiz() {
-    this.isLoading = true;
-   const requestBody={
-    selectedOption:this.selectedAnswers
+//   onSubmitQuiz() {
+//     this.isLoading = true;
+//    const requestBody={
+//     selectedOption:this.selectedAnswers
+//   };
+
+//  console.log('Submitting quiz with the following answers:', requestBody);
+// this.questionService.submitQuiz(requestBody,this.userId,this.subjectId).subscribe((response:any)=>{
+//     console.log(response); 
+//     console.log(this.questionList.length);
+//     this.questionListLengthService.setQuestionListLength(this.questionList.length);
+//     this.quizResultsService.setQuizResults(response);
+//     this.route.navigate(['/result']);
+//     this.isSubmited=true;
+//   })
+// }
+
+
+onSubmitQuiz() {
+  this.isLoading = true;
+
+  // Convert the Map to a plain object
+  const selectedOptionsObj = Object.fromEntries(this.selectedAnswers);
+
+// const apple=Object.keys({
+//   1:"monesh",
+//   2:"jai"
+// });
+// console.log(apple);
+
+       
+  console.log(this.selectedAnswers);
+  
+
+  console.log('Converted selectedAnswers Map to Object:', selectedOptionsObj);
+
+  // Prepare the request body
+  const requestBody = {
+    selectedOption: selectedOptionsObj
   };
 
- console.log('Submitting quiz with the following answers:', requestBody);
-this.questionService.submitQuiz(requestBody,this.userId,this.subjectId).subscribe((response:any)=>{
-    console.log(response); 
-    console.log(this.questionList.length);
-    this.questionListLengthService.setQuestionListLength(this.questionList.length);
-    this.quizResultsService.setQuizResults(response);
-    this.route.navigate(['/result']);
-    this.isSubmited=true;
-  })
+  console.log('Submitting quiz with the following answers:', requestBody);
+
+  // Call the submitQuiz API method
+  this.questionService.submitQuiz(requestBody, this.userId, this.subjectId).subscribe(
+    (response: any) => {
+      console.log('Response from the server:', response);
+
+      // Store quiz results and navigate to the result page
+      this.questionListLengthService.setQuestionListLength(this.questionList.length);
+      this.quizResultsService.setQuizResults(response);
+
+      this.route.navigate(['/result']);
+      this.isSubmited = true;
+      this.isLoading = false;
+    },
+    (error: any) => {
+      console.error('Error while submitting quiz:', error);
+      this.isLoading = false;
+    }
+  );
 }
+
+
 
 
 

@@ -47,6 +47,10 @@ ol{
 
  border: 2px solid blue;
 }
+.selected1{
+
+ border: 2px solid blue;
+}
 
 .progress-container {
   width: 100%;
