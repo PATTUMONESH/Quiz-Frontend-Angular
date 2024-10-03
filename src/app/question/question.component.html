@@ -39,10 +39,14 @@ class="mb-2"
         <h3>{{currentQuestion+1}}.{{questionList[currentQuestion]?.question}}</h3>
       </div>
     </div>
-    <div class="options">
-      <!-- @for (option of questionList[currentQuestion]; track option) { -->
+
+
+<!-- @for (option of questionList[currentQuestion]; track option) { -->
+
+    <!-- <div class="options">
+      
       <ol>
-        <li class="card" (click)="answer(questionList[currentQuestion]?.option1)">
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option1,questionList[currentQuestion]?.quesid)">
           <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option1 }" class="card"
             style="width:100%">
             A.{{questionList[currentQuestion]?.option1}}
@@ -50,21 +54,21 @@ class="mb-2"
         </li>
 
 
-        <li class="card" (click)="answer(questionList[currentQuestion]?.option2)">
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option2,questionList[currentQuestion]?.quesid)">
           <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option2 }"class="card"
             style="width:100%">
             B.{{questionList[currentQuestion]?.option2}}
           </button>
         </li>
 
-        <li class="card" (click)="answer(questionList[currentQuestion]?.option3)">
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option3,questionList[currentQuestion]?.quesid)">
           <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option3 }"  class="card"
             style="width:100%">
             C.{{questionList[currentQuestion]?.option3}}
           </button>
         </li>
 
-        <li class="card" (click)="answer(questionList[currentQuestion]?.option4)">
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option4,questionList[currentQuestion]?.quesid)">
           <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option4}"  class="card"
             style="width:100%">
             D.{{questionList[currentQuestion]?.option4}}
@@ -72,7 +76,54 @@ class="mb-2"
         </li>
 
       </ol>
+    </div> -->
+
+    <div class="options">
+      <ol>
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option1, questionList[currentQuestion]?.quesid)">
+          <button 
+            [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option1, questionList[currentQuestion]?.quesid)}" 
+            class="card" 
+            style="width:100%">
+            A.{{questionList[currentQuestion]?.option1}}
+          </button>
+        </li>
+    
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option2, questionList[currentQuestion]?.quesid)">
+          <button 
+            [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option2, questionList[currentQuestion]?.quesid)}" 
+            class="card" 
+            style="width:100%">
+            B.{{questionList[currentQuestion]?.option2}}
+          </button>
+        </li>
+    
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option3, questionList[currentQuestion]?.quesid)">
+          <button 
+            [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option3, questionList[currentQuestion]?.quesid)}" 
+            class="card" 
+            style="width:100%">
+            C.{{questionList[currentQuestion]?.option3}}
+          </button>
+        </li>
+    
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option4, questionList[currentQuestion]?.quesid)">
+          <button 
+            [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option4, questionList[currentQuestion]?.quesid)}" 
+            class="card" 
+            style="width:100%">
+            D.{{questionList[currentQuestion]?.option4}}
+          </button>
+        </li>
+      </ol>
     </div>
+    
+    
+    
+
+
+
+
     <div class="d-flex justify-content-end ">
 
      

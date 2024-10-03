@@ -24,8 +24,6 @@ export class ResultComponent implements OnInit {
   ngOnInit(): void {
 
 this.questionListLength=this.questionLengtSignal.getQuestionListLength();
-
-
    this.quizResults=this.quizResultsService.getQuizResults();
    console.log(this.quizResults);
    

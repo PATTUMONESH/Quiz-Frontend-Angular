@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -23,6 +24,7 @@ import { SubjectListComponent } from './subject-list/subject-list.component';
 import {MatButtonModule} from '@angular/material/button';
 import { QuestionsviewComponent } from './questionsview/questionsview.component';
 import { ResultComponent } from './result/result.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { ResultComponent } from './result/result.component';
     MatTableModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+   
 
 
   ],

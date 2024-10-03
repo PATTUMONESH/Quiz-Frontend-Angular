@@ -22,10 +22,6 @@ export class QuestionService {
   private baseURL = "http://localhost:8080";
   constructor(private httpClient: HttpClient) { }
 
-
-
-  
-
   getQuestionJson() {
     return this.httpClient.get<any>("assets/questions.json")
   }

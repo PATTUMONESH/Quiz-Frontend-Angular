@@ -12,33 +12,6 @@ import { SharedQuizService } from '../shared-quiz.service';
 export class QuestionComponent implements OnInit {
 
   constructor(private questionService: QuestionService, private route: Router,private quizResultsService:QuizResultServiceService,private questionListLengthService:SharedQuizService) { }
-  
-  public userId?:any;
-  public userName: string = '';
-  public questionList: any = [];
-  public subjectId:any;
-  public currentQuestion: number = 0;
-  
-  
-  isLastQuestion: boolean = false;
-  isLoading: boolean = false;
-
-  
-  public selectedAnswers: Map<any, any> = new Map<any, any>();
-//public selectedAnswers: { [key: string]: any } = {};
-
-  
-  isQuizCompleted: boolean = false;
-  isOptionSelected: boolean = false;
-  selectedOption:string='';
-  progress: number = 0; // Progress percentage
-  totalTime: number = 20; // Total time in seconds (e.g., 10 minutes)
-  timer: any;
-  minutes: number = 10;
-  seconds: number = 0;
-  isSubmited :boolean=false;
- 
-  
   ngOnInit(): void {
     this.userName = localStorage.getItem('name')!;
     this.userId=localStorage.getItem('userIdFromBackEnd');
@@ -64,6 +37,30 @@ export class QuestionComponent implements OnInit {
  this.startTimer();
 })
   }
+  
+   userId?:any;
+   userName: string = '';
+  questionList: any = [];
+   subjectId:any;
+  currentQuestion: number = 0;
+  isLastQuestion: boolean = false;
+  isLoading: boolean = false;
+  selectedAnswers: Map<any, any> = new Map<any, any>();
+//public selectedAnswers: { [key: string]: any } = {};
+
+  
+  isQuizCompleted: boolean = false;
+  isOptionSelected: boolean = false;
+  selectedOption:string='';
+  progress: number = 0; // Progress percentage
+  totalTime: number = 600; // Total time in seconds (e.g., 10 minutes)
+  timer: any;
+  minutes: number = 10;
+  seconds: number = 0;
+  isSubmited :boolean=false;
+ 
+  
+
 
   shuffleArray(array: any[]): any[] {
     for (let i = array.length - 1; i > 0; i--) {
@@ -103,11 +100,136 @@ export class QuestionComponent implements OnInit {
     this.route.navigate(['/login']);
   }
   
-answer(selectedOption: any) {
-        console.log(selectedOption);
-        this.selectedOption=selectedOption;
-      }
-      
+// answer(selectedOption: any,quesId:any) {
+//         console.log(selectedOption);
+//         this.selectedOption=selectedOption;
+//         this.selectedAnswers.set(quesId,selectedOption);
+
+//       }
+
+// nextQuestion(option: string, quesId: any) {
+//   // Save the selected option before moving to the next question
+//   //this.selectedAnswers.set(quesId, option);
+//   // Proceed to the next question
+//   if (this.currentQuestion < this.questionList.length - 1) {
+//     this.currentQuestion++;
+//   }
+
+//   // Retrieve the selected answer for the next question
+//   const nextQuesId = this.questionList[this.currentQuestion]?.quesid;
+//   if (this.selectedAnswers.has(nextQuesId)) {
+//     this.selectedOption = this.selectedAnswers.get(nextQuesId) as string;  // Set the selected option if available
+//   } else {
+//     this.selectedOption = '';  // Reset if no answer was selected for the next question
+//   }
+//   this.progress=((this.currentQuestion+1)/this.questionList.length)*100;
+// //       console.log('Progress:',this.progress);
+// }
+
+// previousQuestion(quesId: number) {
+//   this.currentQuestion--;  // Move to the previous question
+//   console.log(quesId);
+//   // Retrieve the selected answer for the previous question
+//   const prevQuesId = this.questionList[this.currentQuestion]?.quesid;
+//   if (this.selectedAnswers.has(prevQuesId)) {
+//     this.selectedOption = this.selectedAnswers.get(prevQuesId) as string;  // Set the selected option if available
+//   } else {
+//     this.selectedOption = '';  // Reset if no answer was selected for the previous question
+//   }
+//   this.progress=((this.currentQuestion+1)/this.questionList.length)*100;
+// }
+
+answer(option: any, quesId: any) {
+  // Check if this option is already selected for the question
+  if (this.selectedAnswers.has(quesId)) {
+    // If the same option is clicked again, unselect it
+    if (this.selectedAnswers.get(quesId) === option) {
+      this.selectedAnswers.delete(quesId);  // Unselect the option
+    } else {
+      // Select the new option
+      this.selectedAnswers.set(quesId, option);
+    }
+  } else {
+    // If no option is selected for the question, select this one
+    this.selectedAnswers.set(quesId, option);
+  }
+}
+
+isSelected(option: any, quesId: any) {
+  // Check if the current option is selected
+  return this.selectedAnswers.get(quesId) === option;
+}
+
+
+
+nextQuestion(option: string, quesId: any) {
+  if (this.currentQuestion < this.questionList.length - 1) {
+    this.currentQuestion++;
+  }
+  
+  // Retrieve the selected answer for the next question
+  const nextQuesId = this.questionList[this.currentQuestion]?.quesid;
+  if (this.selectedAnswers.has(nextQuesId)) {
+    this.selectedOption = this.selectedAnswers.get(nextQuesId) as string; // Set the selected option if available
+  } else {
+    this.selectedOption = ''; // Reset if no answer was selected for the next question
+  }
+  
+  // Ensure the option disabling is reset for the new question
+  this.questionList[this.currentQuestion].isOptionDisabled = !!this.selectedAnswers.has(nextQuesId);
+  this.progress = ((this.currentQuestion + 1) / this.questionList.length) * 100;
+}
+
+previousQuestion(quesId: number) {
+  this.currentQuestion--;  // Move to the previous question
+
+  // Retrieve the selected answer for the previous question
+  const prevQuesId = this.questionList[this.currentQuestion]?.quesid;
+  if (this.selectedAnswers.has(prevQuesId)) {
+    this.selectedOption = this.selectedAnswers.get(prevQuesId) as string; // Set the selected option if available
+  } else {
+    this.selectedOption = ''; // Reset if no answer was selected for the previous question
+  }
+  
+  // Ensure the option disabling is reset for the previous question
+  this.questionList[this.currentQuestion].isOptionDisabled = !!this.selectedAnswers.has(prevQuesId);
+  this.progress = ((this.currentQuestion + 1) / this.questionList.length) * 100;
+}
+
+
+
+
+
+//   ngOnInit(): void {
+//     this.userName = localStorage.getItem('name')!;
+//     this.userId=localStorage.getItem('userIdFromBackEnd');
+//     console.log(this.userId);
+//     this.questionService.getQuestionsList().subscribe((data: any[]) => {
+//    // this.questionList = data;
+//    this.questionList=this.shuffleArray(data);
+//    this.subjectId = this.questionList[0].subjectId;
+//    // Shuffle options for each question
+//     this.questionList.forEach((question: { option1: any; option2: any; option3: any; option4: any; }) => {
+//       const options = [
+//         question.option1,
+//         question.option2,
+//         question.option3,
+//         question.option4
+//       ];
+//       const shuffledOptions = this.shuffleArray(options);
+//       question.option1 = shuffledOptions[0];
+//       question.option2 = shuffledOptions[1];
+//       question.option3 = shuffledOptions[2];
+//       question.option4 = shuffledOptions[3];
+//     });
+//  this.startTimer();
+// })
+//   }
+
+
+
+
+
 
 // nextQuestion(selectedOption:any,quesId:any) {
 //        // console.log(`${selectedOption} ${quesId}`); 
@@ -148,43 +270,6 @@ answer(selectedOption: any) {
 //      this.progress=((this.currentQuestion+1)/this.questionList.length)*100;
 //       console.log('Progress:',this.progress);
 //       }
-
-
-nextQuestion(option: string, quesId: any) {
-  // Save the selected option before moving to the next question
-  this.selectedAnswers.set(quesId, option);
- 
-  
-  // Proceed to the next question
-  if (this.currentQuestion < this.questionList.length - 1) {
-    this.currentQuestion++;
-  }
-
-  // Retrieve the selected answer for the next question
-  const nextQuesId = this.questionList[this.currentQuestion]?.quesid;
-  if (this.selectedAnswers.has(nextQuesId)) {
-    this.selectedOption = this.selectedAnswers.get(nextQuesId) as string;  // Set the selected option if available
-  } else {
-    this.selectedOption = '';  // Reset if no answer was selected for the next question
-  }
-  this.progress=((this.currentQuestion+1)/this.questionList.length)*100;
-//       console.log('Progress:',this.progress);
-}
-
-previousQuestion(quesId: number) {
-  this.currentQuestion--;  // Move to the previous question
-  console.log(quesId);
-  
-
-  // Retrieve the selected answer for the previous question
-  const prevQuesId = this.questionList[this.currentQuestion]?.quesid;
-  if (this.selectedAnswers.has(prevQuesId)) {
-    this.selectedOption = this.selectedAnswers.get(prevQuesId) as string;  // Set the selected option if available
-  } else {
-    this.selectedOption = '';  // Reset if no answer was selected for the previous question
-  }
-  this.progress=((this.currentQuestion+1)/this.questionList.length)*100;
-}
 
 
 // previousQuestion(quesId:any)
