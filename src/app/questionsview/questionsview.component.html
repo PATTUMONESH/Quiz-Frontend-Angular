@@ -5,14 +5,36 @@
     <!-- Card Start -->
     <div class="row gy-3">
         @for(question of questions;track $index){
+
         <div class="col-md-12 p-3 card">
             <div class="card-block px-6">
-                <p class="card-text">
-                    {{($index+1) +"."+ question.question}}
-                </p>
-                <p class="card-text">
-                    {{"A."+ question.answer}}
-                </p>
+                @if (question.questionType==2) {
+                    <p class="card-text">
+                        {{($index+1)+")"+ question.question}}
+                    </p>
+                }@else {
+                    <p class="card-text">
+                     {{($index+1)+")"}} <img [src]="baseURL+question.question" alt="image not found" width="550px" height="250px"> 
+
+                    </p>
+                }
+
+                
+                @if(question.answerType==2){
+                    <p class="card-text">
+                        {{"A."+ question.answer}}
+                    </p>
+                }@else {
+                    <p class="card-text">
+                        A .<img [src]="baseURL+question.answer" alt="image not found" width="110px"> 
+   
+                       </p>
+
+                }
+               
+
+
+
                 <div class="d-flex justify-content-end gap-2">
                     <button class="btn btn-primary" (click)="update(question)">Update</button>
                     <button class="btn btn-danger d-flex justify-content-end"

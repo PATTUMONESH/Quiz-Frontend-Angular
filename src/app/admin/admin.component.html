@@ -1,17 +1,16 @@
 <head>
   <title>Quiz Admin Form</title>
 </head>
+
 <body>
-  <div class="container mt-5">
+
+
+  <div class="container-fluid mt-5 px-4">
     <div class="card">
 
       <div class="card-header">
         <h4><b>Enter Quiz Question</b></h4>
       </div>
-
-     
-      
-
 
       <form class="p-3" [formGroup]="questionsform">
         <div class="col-sm-4">
@@ -23,55 +22,339 @@
           </select>
         </div>
 
-        <div class="col-sm-12">
-          <label for="enterQuestion" class="form-label">Enter the question</label>
-          <input type="text" class="form-control" id="enterQuestion" placeholder="enter question"
-            aria-label="enterQuestion" formControlName="enterQuestion">
+        <div class=row>
+          <div class="col-sm-12 d-flex justify-content-between">
+            <div class="col-sm-9">
+              <label for="enterQuestion" class="form-label">Enter the question</label>
+              @if(questionsform.controls['QuestionTypeSelect'].value==2){
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="enterQuestion" placeholder="enter question"
+                  aria-label="enterQuestion" formControlName="enterQuestion">
+              </div>
+              }
+              @else{
+              <div class="row">
+                <div class="col-sm-9 ">
+                  <input #questionImage type="file" class="form-control" id="enterQuestion"
+                    placeholder="upload question image File" (change)="onFileSelect(questionImage.id, $event)">
+                </div>
+                <div class="col-sm-3">
+                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                  <button class="btn btn-secondary">Preview</button>
+                </div>
+              </div>
+              }
+            </div>
+            <div class="col-sm-3">
+
+              <label for="QuestionTypeSelection">Choose Question type</label>
+              <select class="form-select" aria-label="Default select example" id="QuestionTypeSelect"
+                formControlName="QuestionTypeSelect">
+                <option selected disabled>Select type</option>
+
+                <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
+                  {{typeDefinition.typeName}}</option>
+              </select>
+            </div>
+          </div>
 
         </div>
 
 
 
+
+       
 
         
+        <div class="row">
+          
+          <div class="col-sm-12 d-flex justify-content-between ">
 
-        <div class="col-sm-6">
-          <label for="enterOption1" class="form-label">Option 1</label>
-          <input type="text" class="form-control" id="enterOption1" placeholder="enter question"
-            aria-label="enterQuestion" formControlName="option1">
+            <div class="col-sm-9">
+              <label for="option1" class="form-label">Enter the Option 1</label>
 
+              @if(questionsform.controls['option1TypeSelect'].value==2){
+              <div class="col-sm-9">
+
+                <input type="text" class="form-control" id="option1" placeholder="enter option 1"
+                  aria-label="enterOption1" formControlName="option1">
+              </div>
+
+              }
+              @else{
+
+              <div class="row">
+                <div class="col-sm-9">
+
+                  <input #option1Image type="file" class="form-control" id="option1"
+                    placeholder="upload option image file" (change)="onFileSelect(option1Image.id,$event)">
+                </div>
+                <div class="col-sm-3">
+                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                  <button class="btn btn-secondary">Preview</button>
+                </div>
+              </div>
+
+              }
+            </div>
+            <div class="col-sm-3">
+
+              <label for="option1TypeSelection">choose option 1 type</label>
+              <select class="form-select" aria-label="Default option 1 select example" id="option1TypeSelect"
+                formControlName="option1TypeSelect">
+                <option selected disabled>select type></option>
+                <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
+                  {{typeDefinition.typeName}}</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div class="col-sm-6">
-          <label for="enterOption2" class="form-label">Option 2</label>
-          <input type="text" class="form-control" id="enterOption2" placeholder="enter question"
-            aria-label="enterQuestion" formControlName="option2">
 
+        <div class="row">
+          <div class="col-sm-12 d-flex justify-content-between ">
+
+            <div class="col-sm-9">
+              <label for="option2" class="form-label">Enter the Option 2</label>
+
+              @if(questionsform.controls['option2TypeSelect'].value==2){
+              <div class="col-sm-9">
+
+                <input type="text" class="form-control" id="option1" placeholder="enter option 2"
+                  aria-label="enterOption2" formControlName="option2">
+              </div>
+
+              }
+              @else{
+
+              <div class="row">
+                <div class="col-sm-9">
+
+                  <input #option2Image type="file" class="form-control" id="option2"
+                    placeholder="upload option 2 image file" (change)="onFileSelect(option2Image.id,$event)">
+                </div>
+                <div class="col-sm-3">
+                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                  <button class="btn btn-secondary">Preview</button>
+                </div>
+              </div>
+
+              }
+            </div>
+
+            <div class="col-sm-3">
+              <label for="option2TypeSelection">choose option 2 type</label>
+              <select class="form-select" aria-label="Default option 2 select example" id="option2TypeSelect"
+                formControlName="option2TypeSelect">
+                <option selected disabled>select type></option>
+                <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
+                  {{typeDefinition.typeName}}</option>
+              </select>
+            </div>
+
+
+          </div>
         </div>
 
-        <div class="col-sm-6">
-          <label for="enterOption3" class="form-label">Option 3</label>
-          <input type="text" class="form-control" id="enterOption3" placeholder="enter question"
-            aria-label="enterQuestion" formControlName="option3">
 
+        <div class="row">
+          
+          <div class="col-sm-12 d-flex justify-content-between ">
+
+            <div class="col-sm-9">
+              <label for="option3" class="form-label">Enter the Option 3</label>
+
+              @if(questionsform.controls['option3TypeSelect'].value==2){
+              <div class="col-sm-9">
+
+                <input type="text" class="form-control" id="option3" placeholder="enter option 3"
+                  aria-label="enterOption3" formControlName="option3">
+              </div>
+
+              }
+              @else{
+
+              <div class="row">
+                <div class="col-sm-9">
+
+                  <input #option3Image type="file" class="form-control" id="option3"
+                    placeholder="upload option 3 image file" (change)="onFileSelect(option3Image.id,$event)">
+                </div>
+                <div class="col-sm-3">
+                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                  <button class="btn btn-secondary">Preview</button>
+                </div>
+              </div>
+
+              }
+            </div>
+            <div class="col-sm-3">
+
+              <label for="option3TypeSelection">choose option 3 type</label>
+              <select class="form-select" aria-label="Default option 3 select example" id="option3TypeSelect"
+                formControlName="option3TypeSelect">
+                <option selected disabled>select type></option>
+                <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
+                  {{typeDefinition.typeName}}</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div class="col-sm-6">
-          <label for="enterOption4" class="form-label">Option 4</label>
-          <input type="text" class="form-control" id="enterOption4" placeholder="enter question"
-            aria-label="enterQuestion" formControlName="option4">
+        <div class="row">
+          <div class="col-sm-12 d-flex justify-content-between ">
 
-        </div>
-        <div class="col-sm-6">
-          <label for="answer" class="form-label">Answer</label>
-          <input type="text" class="form-control" id="answer" placeholder="enter question" aria-label="enterQuestion"
-            formControlName="answer">
+            <div class="col-sm-9">
+              <label for="option4" class="form-label">Enter the Option 4</label>
 
+              @if(questionsform.controls['option4TypeSelect'].value==2){
+              <div class="col-sm-9">
+
+                <input type="text" class="form-control" id="option4" placeholder="enter option 4"
+                  aria-label="enterOption4" formControlName="option4">
+              </div>
+
+              }
+              @else{
+              <div class="row">
+                <div class="col-sm-9">
+
+                  <input #option4Image type="file" class="form-control" id="option4"
+                    placeholder="upload option 4 image file" (change)="onFileSelect(option4Image.id,$event)">
+                </div>
+                <div class="col-sm-3">
+                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                  <button class="btn btn-secondary">Preview</button>
+                </div>
+              </div>
+
+              }
+            </div>
+            <div class="col-sm-3">
+              <label for="option4TypeSelection">choose option 4 type</label>
+              <select class="form-select" aria-label="Default option 4 select example" id="option4TypeSelect"
+                formControlName="option4TypeSelect">
+                <option selected disabled>select type></option>
+                <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
+                  {{typeDefinition.typeName}}</option>
+              </select>
+            </div>
+          </div>
         </div>
+
+
+
+
+
+
+        <!-- <div class="row">
+          <div class="col-sm-12 d-flex justify-content-between ">
+
+            <div class="col-sm-9">
+              <label for="answer" class="form-label">Enter the answer</label>
+
+              @if(questionsform.controls['answerTypeSelect'].value==2){
+              <div class="col-sm-9">
+
+                <input type="text" class="form-control" id="answer" placeholder="enter answer" aria-label="enterAnswer"
+                  formControlName="answer">
+              </div>
+
+              }
+              @else{
+
+              <div class="row">
+                <div class="col-sm-9">
+
+                  <input #answerImage type="file" class="form-control" id="answer"
+                    placeholder="upload answer image file" (change)="onFileSelect(answerImage.id,$event)">
+                </div>
+                <div class="col-sm-3">
+                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                </div>
+              </div>
+
+              }
+            </div>
+            <div class="col-sm-3">
+
+              <label for="answerTypeSelection">Choose Answer type</label>
+              <select class="form-select" aria-label="Default answer select example" id="answerTypeSelect"
+                formControlName="answerTypeSelect">
+                <option selected disabled>select type></option>
+                <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
+                  {{typeDefinition.typeName}}</option>
+              </select>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="row">
+          <div class="col-sm-12 d-flex justify-content-between ">
+            <div class="col-sm-9">
+              <label class="form-label">Select the answer</label>
+        
+              <div class="form-check form-check-inline">
+                @if(questionsform.controls['option1TypeSelect'].value == 2){
+                <input class="form-check-input" #op1 type="radio" id="answerOption1" name="answer" value="{{questionsform.controls['option1'].value}}" (change)="setAnswer(op1.value)">
+                <label class="form-check-label" for="answerOption1">Option 1</label>
+                }
+                @else {
+                  <input class="form-check-input" #op1 type="radio" id="answerOption1" name="answer" value="{{questionsform.controls['option1'].value}}" (change)="setAnswer(op1.value)">
+                <label class="form-check-label" for="answerOption1">Option 1</label>
+
+                }
+              </div>
+              <div class="form-check form-check-inline">
+                @if(questionsform.controls['option2TypeSelect'].value == 2){
+                <input class="form-check-input"  #op2 type="radio" id="answerOption2" name="answer" value="{{questionsform.controls['option2'].value}}" (change)="setAnswer(op2.value)">
+                <label class="form-check-label" for="answerOption2">Option 2</label>
+                }
+                @else {
+                   <input class="form-check-input"  #op2 type="radio" id="answerOption2" name="answer" value="{{questionsform.controls['option2'].value}}" (change)="setAnswer(op2.value)">
+                  <label class="form-check-label" for="answerOption2">Option 2</label>
+                }
+              </div>
+              <div class="form-check form-check-inline">
+                @if(questionsform.controls['option3TypeSelect'].value == 2){
+                <input class="form-check-input"  #op3 type="radio" id="answerOption3" name="answer" value="{{questionsform.controls['option3'].value}}" (change)="setAnswer(op3.value)">
+                <label class="form-check-label" for="answerOption3">Option 3</label>
+                }
+                @else {
+                  <input class="form-check-input"  #op3 type="radio" id="answerOption3" name="answer" value="{{questionsform.controls['option3'].value}}" (change)="setAnswer(op3.value)">
+                  <label class="form-check-label" for="answerOption3">Option 3</label>
+
+                }
+              </div>
+              <div class="form-check form-check-inline" >
+                @if(questionsform.controls['option4TypeSelect'].value == 2){
+                <input class="form-check-input"  #op4 type="radio" id="answerOption4" name="answer" value="{{questionsform.controls['option4'].value}}" (change)="setAnswer(op4.value)">
+                <label class="form-check-label" for="answerOption4">option 4</label>
+                }
+                @else {
+                  <input class="form-check-input"  #op4 type="radio" id="answerOption4" name="answer" value="{{questionsform.controls['option4'].value}}" (change)="setAnswer(op4.value)">
+                <label class="form-check-label" for="answerOption4">option 4</label>
+
+                }
+              </div>
+            </div>
+        
+            <div class="col-sm-3">
+              <label for="answerTypeSelection">Choose Answer type</label>
+              <select class="form-select" aria-label="Default answer select example" id="answerTypeSelect" formControlName="answerTypeSelect">
+                <option selected disabled>select type</option>
+                <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
+                  {{typeDefinition.typeName}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
 
         <div class="mt-3 d-flex justify-content-between">
 
-         @if(isUpdate){
+          @if(isUpdate){
           <button type="submit" class="btn btn-primary" (click)="updateQuestion(quesId)">Update question</button>
           <button type="button" class="btn btn-primary" (click)="onView()">View Questions</button>
           }
@@ -84,6 +367,106 @@
 
         <!-- {{this.questionsform.value | json}} -->
       </form>
-</div>
+    </div>
   </div>
+
+
+  {{questionsform.value | json}}
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="col-sm-12 d-flex justify-content-between">
+          <label for="enterQuestion" class="form-label">Enter the question</label>
+          <label for="typeSelection">Choose Question type</label> 
+         </div> -->
+
+<!-- <div class="col-sm-12 d-flex">
+                @if(questionsform.controls['typeSelect'].value==2){
+                   <div class="col-sm-9 ">
+              <input type="text" class="form-control" id="enterQuestion" placeholder="enter question"
+                      aria-label="enterQuestion" formControlName="enterQuestion">
+                </div>
+                  }
+                  @else{
+             
+                   <div class="col-sm-6">
+                      <input #questionImage type="file" class="form-control" id="enterQuestion" placeholder="upload question image File" (change)="onFileSelect(questionImage.id, $event)">
+                    </div>
+                    <div class="col-sm-3">
+                      <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                    </div>
+                
+                  }
+                  
+             <div class="col-sm-3">  
+                  <select class="form-select" aria-label="Default select example" id="typeSelection"
+                    formControlName="typeSelect">
+                    <option selected disabled>Select type</option>
+                    <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">{{typeDefinition.typeName}}</option>
+                  </select>
+                  </div>
+        
+                </div> -->
+
+
+
+
+
+
+
+
+
+<!-- <div class="col-sm-12 d-flex justify-content-between ">
+		 <div class="col-sm-6">
+          <label for="enterOption1" class="form-label">Option 1</label>
+		  
+          <input type="text" class="form-control" id="option1" placeholder="enter option 1"
+            aria-label="enterOption1" formControlName="option1">
+			
+			
+        </div>
+		
+		
+		
+		</div> -->
+
+
+
+
+<!-- <div class="col-sm-12 d-flex justify-content-between ">
+          <div class="col-sm-9">
+            <label for="enterQuestion" class="form-label">Enter the question</label>
+
+          @if(questionsform.controls['typeSelect'].value==2){
+            <input type="text" class="form-control" id="enterQuestion" placeholder="enter question"
+              aria-label="enterQuestion" formControlName="enterQuestion">
+          }
+          @else{
+              <input #questionImage type="file" class="form-control" id="enterQuestion" placeholder="upload question image File" (change)="onFileSelect(questionImage.id, $event)">
+              <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+          }
+          </div>
+
+
+          <div class="col-sm-2 gt-3">
+            <label for="typeSelection">Choose Question type</label>
+          <select class="form-select" aria-label="Default select example" id="typeSelection"
+            formControlName="typeSelect">
+            <option selected disabled>Select type</option>
+            <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">{{typeDefinition.typeName}}</option>
+          </select>
+          </div>
+
+        </div> -->

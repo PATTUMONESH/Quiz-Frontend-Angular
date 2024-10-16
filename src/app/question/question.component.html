@@ -36,84 +36,91 @@ class="mb-2"
 </div>
     <div class="question">
       <div class="card">
-        <h3>{{currentQuestion+1}}.{{questionList[currentQuestion]?.question}}</h3>
+       
+        @if(questionList[currentQuestion]?.questionType==2){
+          <h3>{{currentQuestion+1}}.{{questionList[currentQuestion]?.question}}</h3>
+        }
+        @else {
+         {{currentQuestion+1}}.<img [src]="baseURL+questionList[currentQuestion]?.question" alt="image not found" width="550px" height="250px">
+        }
+        
       </div>
     </div>
 
 
-<!-- @for (option of questionList[currentQuestion]; track option) { -->
-
-    <!-- <div class="options">
-      
-      <ol>
-        <li class="card" (click)="answer(questionList[currentQuestion]?.option1,questionList[currentQuestion]?.quesid)">
-          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option1 }" class="card"
-            style="width:100%">
-            A.{{questionList[currentQuestion]?.option1}}
-          </button>
-        </li>
-
-
-        <li class="card" (click)="answer(questionList[currentQuestion]?.option2,questionList[currentQuestion]?.quesid)">
-          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option2 }"class="card"
-            style="width:100%">
-            B.{{questionList[currentQuestion]?.option2}}
-          </button>
-        </li>
-
-        <li class="card" (click)="answer(questionList[currentQuestion]?.option3,questionList[currentQuestion]?.quesid)">
-          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option3 }"  class="card"
-            style="width:100%">
-            C.{{questionList[currentQuestion]?.option3}}
-          </button>
-        </li>
-
-        <li class="card" (click)="answer(questionList[currentQuestion]?.option4,questionList[currentQuestion]?.quesid)">
-          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option4}"  class="card"
-            style="width:100%">
-            D.{{questionList[currentQuestion]?.option4}}
-          </button>
-        </li>
-
-      </ol>
-    </div> -->
-
+                                                 
     <div class="options">
       <ol>
+
         <li class="card" (click)="answer(questionList[currentQuestion]?.option1, questionList[currentQuestion]?.quesid)">
-          <button 
-            [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option1, questionList[currentQuestion]?.quesid)}" 
-            class="card" 
-            style="width:100%">
+          @if(questionList[currentQuestion]?.option1Type==2){
+          <button [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option1, questionList[currentQuestion]?.quesid)}" class="card" style="width:100%">
             A.{{questionList[currentQuestion]?.option1}}
           </button>
+        }
+        @else {
+          <button [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option1, questionList[currentQuestion]?.quesid)}" class="card" style="width:100%">
+
+          A.<img [src]="baseURL+questionList[currentQuestion]?.option1" width="550px" height="250px">
+          </button>
+        }
         </li>
+
+
+
+
+
+
     
         <li class="card" (click)="answer(questionList[currentQuestion]?.option2, questionList[currentQuestion]?.quesid)">
-          <button 
-            [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option2, questionList[currentQuestion]?.quesid)}" 
-            class="card" 
-            style="width:100%">
+
+           @if(questionList[currentQuestion]?.option2Type==2){
+          <button [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option2, questionList[currentQuestion]?.quesid)}" class="card" style="width:100%">
             B.{{questionList[currentQuestion]?.option2}}
           </button>
-        </li>
+        }
+        @else {
+          <button [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option2, questionList[currentQuestion]?.quesid)}" class="card" style="width:100%">
+
+            B.<img [src]="baseURL+questionList[currentQuestion]?.option2" width="550px" height="250px">
+          </button>
+         }
+    </li>
+
+
     
-        <li class="card" (click)="answer(questionList[currentQuestion]?.option3, questionList[currentQuestion]?.quesid)">
-          <button 
-            [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option3, questionList[currentQuestion]?.quesid)}" 
-            class="card" 
-            style="width:100%">
+ <li class="card" (click)="answer(questionList[currentQuestion]?.option3,questionList[currentQuestion]?.quesid)">
+          @if(questionList[currentQuestion]?.option3Type==2){
+          <button [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option3, questionList[currentQuestion]?.quesid)}" class="card" style="width:100%">
             C.{{questionList[currentQuestion]?.option3}}
           </button>
+        }
+        @else {
+          <button [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option3, questionList[currentQuestion]?.quesid)}" class="card" style="width:100%">
+
+            C.<img [src]="baseURL+questionList[currentQuestion]?.option3" width="550px" height="250px">
+            </button>
+
+        }
         </li>
-    
+       
         <li class="card" (click)="answer(questionList[currentQuestion]?.option4, questionList[currentQuestion]?.quesid)">
-          <button 
-            [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option4, questionList[currentQuestion]?.quesid)}" 
-            class="card" 
-            style="width:100%">
+          @if(questionList[currentQuestion]?.option4Type==2){
+          <button [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option4, questionList[currentQuestion]?.quesid)}" class="card" style="width:100%">
             D.{{questionList[currentQuestion]?.option4}}
           </button>
+        }
+        @else {
+          <button [ngClass]="{'selected': isSelected(questionList[currentQuestion]?.option4, questionList[currentQuestion]?.quesid)}" class="card" style="width:100%">
+
+            D.<img [src]="baseURL+questionList[currentQuestion]?.option4" width="550px" height="250px">
+            </button>
+
+        }
+
+
+
+
         </li>
       </ol>
     </div>
@@ -326,3 +333,43 @@ class="mb-2"
         <button mat-button  [disabled]="currentQuestion===22" class="btn" (click)="nextQuestion(this.selectedOption, questionList[currentQuestion]?.quesid)"> Next</button>
               <button mat-button  [disabled]="currentQuestion!==8" class="btn" (click)="onSubmitQuiz()" > Submit</button> -->
     <!-- <button *ngIf="currentQuestion===questionList.length-1"  class="btn" (click)="onSubmitQuiz()">{{}}</button> -->
+
+
+
+    
+<!-- @for (option of questionList[currentQuestion]; track option) { -->
+
+    <!-- <div class="options">
+      
+      <ol>
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option1,questionList[currentQuestion]?.quesid)">
+          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option1 }" class="card"
+            style="width:100%">
+            A.{{questionList[currentQuestion]?.option1}}
+          </button>
+        </li>
+
+
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option2,questionList[currentQuestion]?.quesid)">
+          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option2 }"class="card"
+            style="width:100%">
+            B.{{questionList[currentQuestion]?.option2}}
+          </button>
+        </li>
+
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option3,questionList[currentQuestion]?.quesid)">
+          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option3 }"  class="card"
+            style="width:100%">
+            C.{{questionList[currentQuestion]?.option3}}
+          </button>
+        </li>
+
+        <li class="card" (click)="answer(questionList[currentQuestion]?.option4,questionList[currentQuestion]?.quesid)">
+          <button [ngClass]="{'selected':selectedOption===questionList[currentQuestion]?.option4}"  class="card"
+            style="width:100%">
+            D.{{questionList[currentQuestion]?.option4}}
+          </button>
+        </li>
+
+      </ol>
+    </div> -->

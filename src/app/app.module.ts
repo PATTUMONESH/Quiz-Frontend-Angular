@@ -26,6 +26,7 @@ import { QuestionsviewComponent } from './questionsview/questionsview.component'
 import { ResultComponent } from './result/result.component';
 import { MatDialog } from '@angular/material/dialog';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { MatDialog } from '@angular/material/dialog';
     AdminComponent,
     SubjectListComponent,
     QuestionsviewComponent,
-    ResultComponent
+    ResultComponent,
+   
   ],
   imports: [
     BrowserModule,

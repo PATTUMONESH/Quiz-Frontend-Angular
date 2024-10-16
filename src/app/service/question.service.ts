@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 
 export interface QuestionUpdateDto {
-  question:string | null | undefined;
+  question: string | null | undefined;
   option1: string | null | undefined;
   option2: string | null | undefined;
   option3: string | null | undefined;
@@ -19,7 +19,8 @@ export interface QuestionUpdateDto {
 })
 export class QuestionService {
 
-  private baseURL = "http://localhost:8080";
+  
+  baseURL = "http://localhost:8080";
   constructor(private httpClient: HttpClient) { }
 
   getQuestionJson() {
@@ -34,34 +35,33 @@ export class QuestionService {
     const options = { headers: headers }
     return this.httpClient.post(`${this.baseURL}/RegisterUsers`, dataFromRegisterForm, options)
   }
-  
+
 
   addQuestion(inputFromAdmin: any) {
     console.log(inputFromAdmin);
     return this.httpClient.post(`${this.baseURL}/addQuestions`, inputFromAdmin)
   }
 
-  // updateQuestion(id: number,question: any): Observable<any> {
-  //   console.log(question);
-  //   console.log(id);
-    
-  //   return this.httpClient.put(`${this.baseURL}/updateQuestion/${id}`, question);
-  // }
+
 
 
   // Method to update a question by ID
   updateQuestion(id: number, questionUpdateDto: QuestionUpdateDto): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'id':id
+      'id': id
     });
 
-    return this.httpClient.put(`${this.baseURL}/updateQuestion`,questionUpdateDto, { headers: headers }
+    return this.httpClient.put(`${this.baseURL}/updateQuestion`, questionUpdateDto, { headers: headers }
     );
   }
 
   getSubjectsList(): Observable<any[]> {
     return this.httpClient.get<any[]>(`${this.baseURL}/getAllSubjects`);
+  }
+
+  getTypeList(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.baseURL}/getAllTypes`);
   }
 
   checkAnswer(id: any, answer: any): Observable<any> {
@@ -85,7 +85,7 @@ export class QuestionService {
     return this.httpClient.get<any[]>(`${this.baseURL}/getAllQuestionsForUser`);
   }
 
-  getTotalQuestions():Observable<any[]>{
+  getTotalQuestions(): Observable<any[]> {
     return this.httpClient.get<any[]>(`${this.baseURL}/getAllQuestionsForAdmin`);
   }
 
@@ -96,6 +96,20 @@ export class QuestionService {
     })
     const options2 = { headers: headers }
     return this.httpClient.post(`${this.baseURL}/Login`, dataFromLoginForm, options2)
+  }
+
+  uploadImage(imageFile: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('image', imageFile);
+
+    console.log(formData);
+
+    console.log(imageFile);
+
+    const headers = new HttpHeaders({
+      'accept': '*/*'
+    });
+    return this.httpClient.post(`${this.baseURL}/uploadImage`, formData, { headers });
   }
 
 
@@ -134,6 +148,14 @@ export class QuestionService {
 //   return this.httpClient.post(`${this.baseURL}/${userId}`, body, options3);
 // }
 
+
+
+  // updateQuestion(id: number,question: any): Observable<any> {
+  //   console.log(question);
+  //   console.log(id);
+
+  //   return this.httpClient.put(`${this.baseURL}/updateQuestion/${id}`, question);
+  // }
 
 
 

@@ -11,6 +11,29 @@ import { SharedQuizService } from '../shared-quiz.service';
 })
 export class QuestionComponent implements OnInit {
 
+baseURL="http://localhost:8080/getImage?imageName=";
+
+  userId?:any;
+   userName: string = '';
+  questionList: any = [];
+   subjectId:any;
+  currentQuestion: number = 0;
+  isLastQuestion: boolean = false;
+  isLoading: boolean = false;
+  selectedAnswers: Map<any, any> = new Map<any, any>();
+//public selectedAnswers: { [key: string]: any } = {};
+isQuizCompleted: boolean = false;
+  isOptionSelected: boolean = false;
+  selectedOption:string='';
+  progress: number = 0; // Progress percentage
+  totalTime: number = 600; // Total time in seconds (e.g., 10 minutes)
+  timer: any;
+  minutes: number = 10;
+  seconds: number = 0;
+  isSubmited :boolean=false;
+
+ 
+
   constructor(private questionService: QuestionService, private route: Router,private quizResultsService:QuizResultServiceService,private questionListLengthService:SharedQuizService) { }
   ngOnInit(): void {
     this.userName = localStorage.getItem('name')!;
@@ -19,6 +42,8 @@ export class QuestionComponent implements OnInit {
     this.questionService.getQuestionsList().subscribe((data: any[]) => {
    // this.questionList = data;
    this.questionList=this.shuffleArray(data);
+   console.log(this.questionList);
+   
    this.subjectId = this.questionList[0].subjectId;
    // Shuffle options for each question
     this.questionList.forEach((question: { option1: any; option2: any; option3: any; option4: any; }) => {
@@ -38,26 +63,7 @@ export class QuestionComponent implements OnInit {
 })
   }
   
-   userId?:any;
-   userName: string = '';
-  questionList: any = [];
-   subjectId:any;
-  currentQuestion: number = 0;
-  isLastQuestion: boolean = false;
-  isLoading: boolean = false;
-  selectedAnswers: Map<any, any> = new Map<any, any>();
-//public selectedAnswers: { [key: string]: any } = {};
-
-  
-  isQuizCompleted: boolean = false;
-  isOptionSelected: boolean = false;
-  selectedOption:string='';
-  progress: number = 0; // Progress percentage
-  totalTime: number = 600; // Total time in seconds (e.g., 10 minutes)
-  timer: any;
-  minutes: number = 10;
-  seconds: number = 0;
-  isSubmited :boolean=false;
+   
  
   
 
@@ -159,6 +165,7 @@ isSelected(option: any, quesId: any) {
   // Check if the current option is selected
   return this.selectedAnswers.get(quesId) === option;
 }
+
 
 
 

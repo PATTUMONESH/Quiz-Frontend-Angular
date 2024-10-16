@@ -8,10 +8,15 @@ import { QuestionService } from '../service/question.service';
   styleUrl: './questionsview.component.css'
 })
 export class QuestionsviewComponent implements OnInit {
+  
   questions: any = [];
+
 
   constructor(private route: Router, private questionService: QuestionService) {
 }
+
+ baseURL = "http://localhost:8080/getImage?imageName="
+
 
 adminLogout(){
   this.route.navigate(['/login']);
@@ -20,8 +25,24 @@ adminLogout(){
   loadQuestions(){
     this.questionService.getTotalQuestions().subscribe((data: any[]) => {
       this.questions = data;
+      console.log(this.questions);
+      
     })
   }
+
+  
+
+  // isImage(value: string):boolean{
+  //   if(value?.match(/\.(jpg|jpeg|png|gif)$/i)){
+  //     return true;
+  //   }
+  //   else{
+  //     return false;
+  //   }
+  // }
+ 
+
+
   ngOnInit(): void {
    this.loadQuestions();
   }
