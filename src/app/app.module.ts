@@ -3,8 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
-
+import {MatRadioModule} from '@angular/material/radio';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -24,7 +23,7 @@ import { SubjectListComponent } from './subject-list/subject-list.component';
 import {MatButtonModule} from '@angular/material/button';
 import { QuestionsviewComponent } from './questionsview/questionsview.component';
 import { ResultComponent } from './result/result.component';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -55,7 +54,11 @@ import { MatDialog } from '@angular/material/dialog';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-   
+    MatRadioModule,
+    MatDialogModule
+    
+
+    
 
 
   ],

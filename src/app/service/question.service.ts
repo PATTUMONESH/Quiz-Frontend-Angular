@@ -12,6 +12,15 @@ export interface QuestionUpdateDto {
   option4: string | null | undefined;
   answer: string | null | undefined;
   subjectId: number | null | undefined;
+  QuestionType:number | null | undefined;
+  option1Type:number | null | undefined;
+  option2Type:number | null | undefined;
+  option3Type:number | null | undefined;
+  option4Type:number | null | undefined;
+  answerType:number | null | undefined;
+
+
+  
 }
 
 @Injectable({
