@@ -34,6 +34,17 @@ export interface DialogData {
              }]
 })
 export class AdminComponent implements OnInit {
+
+
+
+viewScores() {
+
+this.route.navigate(['/viewScores']);
+
+
+
+
+}
   baseURL = "http://localhost:8080/getImage?imageName="
 
   uploadedFile: any;
@@ -190,8 +201,6 @@ export class AdminComponent implements OnInit {
 
     onAdd() {
       const questionFormData = {
-
-        
         "question": this.questionsform.value.enterQuestion,
         "option1": this.questionsform.value.option1,
         "option2": this.questionsform.value.option2,
@@ -205,10 +214,7 @@ export class AdminComponent implements OnInit {
         "option3Type":this.questionsform.value.option3TypeSelect,
         "option4Type":this.questionsform.value.option4TypeSelect,
         "answerType":this.questionsform.value.answerTypeSelect
-
-
-      };
-      
+};
       this.questionService.addQuestion(questionFormData).subscribe((val: any) => {
         this.questionsform.reset();
         console.log(val)
@@ -229,7 +235,7 @@ updateQuestion(quesId: any): void {
       option4: this.questionsform.value.option4,
       answer: this.questionsform.value.answer,
       subjectId: this.questionsform.value.subjectselect,
-      QuestionType:this.questionsform.value.QuestionTypeSelect,
+      questionType:this.questionsform.value.QuestionTypeSelect,
       option1Type:this.questionsform.value.option1TypeSelect,
       option2Type:this.questionsform.value.option2TypeSelect,
       option3Type:this.questionsform.value.option3TypeSelect,
@@ -240,6 +246,8 @@ updateQuestion(quesId: any): void {
     };
 
     console.log(this.questionsform.value);
+    console.log(updateForm);
+    
 
     this.questionService.updateQuestion(quesId,updateForm).subscribe(() => {
       this.route.navigate(['/viewQuestions']);
@@ -288,6 +296,7 @@ baseURL = "http://localhost:8080/getImage?imageName="
 console.log(data);
 
   }
+
 
   onNoClick(): void {
     this.dialogRef.close();

@@ -47,3 +47,8 @@
         <button type="submit" class="btn btn-primary" (click)="adminLogout()">Please Click here to go back login page</button>
     </div>
 </div>
+<mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+</mat-paginator>

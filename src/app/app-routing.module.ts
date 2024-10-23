@@ -9,6 +9,7 @@ import { SubjectListComponent } from './subject-list/subject-list.component';
 import { QuestionsviewComponent } from './questionsview/questionsview.component';
 import { ResultComponent } from './result/result.component';
 import { exitGuard } from './exit.guard';
+import { UserScoreListComponent } from './user-score-list/user-score-list.component';
 
 
 
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path:'viewQuestions',component:QuestionsviewComponent},
  {path:"welcome",component:WelcomeComponent},
   {path:"question",component:QuestionComponent},
+  {path:"viewScores",component:UserScoreListComponent},
   {path:"result",component:ResultComponent,canDeactivate:[exitGuard]}
 ];
 

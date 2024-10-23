@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuestionService } from '../service/question.service';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-questionsview',
   templateUrl: './questionsview.component.html',
-  styleUrl: './questionsview.component.css'
+  styleUrl: './questionsview.component.css',
+  
 })
 export class QuestionsviewComponent implements OnInit {
   
   questions: any = [];
-
-
-  constructor(private route: Router, private questionService: QuestionService) {
-}
+constructor(private route: Router, private questionService: QuestionService) {}
 
  baseURL = "http://localhost:8080/getImage?imageName="
 

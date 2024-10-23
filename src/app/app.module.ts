@@ -24,6 +24,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { QuestionsviewComponent } from './questionsview/questionsview.component';
 import { ResultComponent } from './result/result.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { UserScoreListComponent } from './user-score-list/user-score-list.component';
 
 
 @NgModule({
@@ -39,6 +41,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     SubjectListComponent,
     QuestionsviewComponent,
     ResultComponent,
+    UserScoreListComponent,
    
   ],
   imports: [
@@ -55,7 +58,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatRadioModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
     
 
     

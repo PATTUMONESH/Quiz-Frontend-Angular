@@ -1,0 +1,36 @@
+<div class="container py-3">
+    <div class="row">
+        <div class="title h1 text-center">User Score List</div>
+    </div>
+
+    
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Serial No</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Score</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (userScore of userScores; track $index) {
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ userScore.firstName }}</td>
+                        <td>{{ userScore.lastName }}</td>
+                        <td>{{ userScore.score }}</td>
+                        <td>
+                            <button class="btn btn-danger" (click)="deleteScore(userScore.id)">Delete</button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

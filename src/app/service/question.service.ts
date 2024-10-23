@@ -12,7 +12,7 @@ export interface QuestionUpdateDto {
   option4: string | null | undefined;
   answer: string | null | undefined;
   subjectId: number | null | undefined;
-  QuestionType:number | null | undefined;
+  questionType:number | null | undefined;
   option1Type:number | null | undefined;
   option2Type:number | null | undefined;
   option3Type:number | null | undefined;
@@ -69,6 +69,10 @@ export class QuestionService {
     return this.httpClient.get<any[]>(`${this.baseURL}/getAllSubjects`);
   }
 
+  getUserScores():Observable<any[]>{
+    return this.httpClient.get<any[]>(`${this.baseURL}/getAllUserScores`);
+  }
+
   getTypeList(): Observable<any[]> {
     return this.httpClient.get<any[]>(`${this.baseURL}/getAllTypes`);
   }
@@ -88,6 +92,15 @@ export class QuestionService {
     })
     const options = { headers: headers }
     return this.httpClient.delete(`${this.baseURL}/deleteQuestion`, options);
+  }
+
+  deleteScore(id:any):Observable<any>{
+   const headers=new HttpHeaders({
+    'Content-Type': 'application/json',
+    'id':id
+   }) 
+   const options={headers:headers}
+   return this.httpClient.delete(`${this.baseURL}/deleteUserScore`,options)
   }
 
   getQuestionsList(): Observable<any[]> {
