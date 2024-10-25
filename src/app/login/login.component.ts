@@ -1,22 +1,19 @@
-import { QuestionService } from './../service/question.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog'; // Import dialog for material modal (if using)
+import { QuestionService } from './../service/question.service';
+import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'], // Ensure proper styleUrls here
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 
-  constructor(
-    private route: Router, 
-    private formBuilder: FormBuilder, 
-    private questionService: QuestionService,
-    private dialog: MatDialog // For modal dialogs
-  ) { }
+  ngOnInit(): void {}
+
+  constructor(private route: Router,private formBuilder: FormBuilder,private questionService: QuestionService,private snackBar: MatSnackBar) { }
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -33,45 +30,38 @@ export class LoginComponent implements OnInit {
       this.questionService.loginUserData(loginPayload).subscribe(
         (val: any) => {
           if (val && val.id) {
-            // Set user details in localStorage
             localStorage.setItem("userIdFromBackEnd", val.id);
             localStorage.setItem("userfNameFromBackend", val.firstName);
             localStorage.setItem("userlNameFromBackend", val.lastName);
             localStorage.setItem("userRoleFromBackend", val.role.id);
 
             const roleId = val.role.id;
-
-            // Navigate based on role
             if (roleId === 1) {
               this.route.navigate(['/welcome']);
             } else if (roleId === 2) {
-              this.route.navigate(['/addQuestions']);
+              this.route.navigate(['/adminWelcome']);
             }
-          } else {
-            // User not found or not registered
-            this.showRegisterPrompt();
           }
         },
         (error) => {
           console.error('Error:', error);
-          if (error.status === 404) {
-            // Handle user not found (custom logic from backend)
-            this.showRegisterPrompt();
+          if (error.status === 400) {
+            this.showErrorMessage(error.error.message); // Show error in snackbar
           }
         }
       );
     }
   }
 
-  // Function to show register prompt
-  showRegisterPrompt() {
-    alert('User not registered. Please sign up first.'); // Simple alert or replace with a material dialog/modal
+  // Method to show the error message in a snackbar
+  showErrorMessage(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000, // Duration in milliseconds
+      horizontalPosition: 'center', // Horizontal position (start, center, end)
+      verticalPosition: 'top', // Vertical position (top, bottom)
+      panelClass: ['snackbar-error'] // Custom class for styling
+    });
   }
 
-  @ViewChild('name') nameKey!: ElementRef;
-  ngOnInit(): void {}
-
-  onStartQuiz() {
-    localStorage.setItem("name", this.nameKey.nativeElement.value);
-  }
+  
 }

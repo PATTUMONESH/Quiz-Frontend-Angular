@@ -11,12 +11,10 @@
 
   <div class="container-fluid mt-5 px-4">
 
-    <div class="container mb-3 d-flex justify-content-end">
+    <!-- <div class="container mb-3 d-flex justify-content-end">
       <button class="btn btn-primary" (click)="viewScores()">View Scores</button>
 
-    </div>
-
-
+    </div> -->
 
 
     <div class="card">
@@ -33,6 +31,12 @@
             <option selected disabled>Select Technology</option>
             <option *ngFor="let subjectValue of subjects" [value]="subjectValue.id">{{subjectValue.subject}}</option>
           </select>
+          @if(questionsform.get('subjectselect')?.invalid && questionsform.get('subjectselect')?.touched){
+            <p class="text-danger">
+              select the subject
+            </p>
+
+          }
         </div>
 
         <div class=row>
@@ -43,6 +47,13 @@
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="enterQuestion" placeholder="enter question"
                   aria-label="enterQuestion" formControlName="enterQuestion">
+                  @if(questionsform.get('enterQuestion')?.invalid && questionsform.get('enterQuestion')?.touched){
+                    <p class="text-danger">
+            Please enter Question
+                     
+                    </p>
+
+                  }
               </div>
               }
               @else{
@@ -50,6 +61,12 @@
                 <div class="col-sm-9 ">
                   <input #questionImage type="file" class="form-control" id="enterQuestion"
                     placeholder="upload question image File" (change)="onFileSelect(questionImage.id, $event)">
+                    @if(questionsform.get('enterQuestion')?.invalid&&questionsform.get('enterQuestion')?.touched){
+                      <p class="text-danger">
+                        please select file
+                      </p>
+
+                    }
                 </div>
                 <div class="col-sm-3">
                   <button (click)="onUpload()" class="btn btn-primary">Upload</button>
@@ -58,6 +75,9 @@
               </div>
               }
             </div>
+
+
+
             <div class="col-sm-3">
 
               <label for="QuestionTypeSelection">Choose Question type</label>

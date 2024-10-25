@@ -1,6 +1,6 @@
 import { QuestionService, QuestionUpdateDto } from './../service/question.service';
 import { Component, OnInit,Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import {
@@ -37,14 +37,12 @@ export class AdminComponent implements OnInit {
 
 
 
-viewScores() {
+// viewScores() {
 
-this.route.navigate(['/viewScores']);
-
-
+// this.route.navigate(['/viewScores']);
 
 
-}
+// }
   baseURL = "http://localhost:8080/getImage?imageName="
 
   uploadedFile: any;
@@ -67,19 +65,19 @@ this.route.navigate(['/viewScores']);
   }
  
   questionsform = this.formBuilder.group({
-    enterQuestion: [''],
-    option1: [''],
-    option2: [''],
-    option3: [''],
-    option4: [''],
-    answer: [''],
-    subjectselect: [null],
-    QuestionTypeSelect:[null],
-    option1TypeSelect:[null],
-    option2TypeSelect:[null],
-    option3TypeSelect:[null],
-    option4TypeSelect:[null],
-    answerTypeSelect:[null]
+    enterQuestion: ['',[Validators.required]],
+    option1: ['',[Validators.required]],
+    option2: ['',[Validators.required]],
+    option3: ['',[Validators.required]],
+    option4: ['',[Validators.required]],
+    answer: ['',[Validators.required]],
+    subjectselect: [null,[Validators.required]],
+    QuestionTypeSelect:[null,[Validators.required]],
+    option1TypeSelect:[null,[Validators.required]],
+    option2TypeSelect:[null,[Validators.required]],
+    option3TypeSelect:[null,[Validators.required]],
+    option4TypeSelect:[null,[Validators.required]],
+    answerTypeSelect:[null,[Validators.required]]
   })
 
   setAnswer(value:any){

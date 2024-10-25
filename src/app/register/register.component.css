@@ -1,0 +1,55 @@
+/* Container styling */
+.container {
+    max-width: 700px;
+  }
+  
+  /* Image bounce animation */
+  @keyframes bounceIn {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  .bounce-in {
+    animation: bounceIn 1s ease;
+  }
+  
+  /* Form fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .fade-in {
+    animation: fadeIn 1s ease;
+  }
+  
+  /* Button glow effect */
+  .glow {
+    transition: box-shadow 0.3s ease;
+  }
+  .glow:hover {
+    box-shadow: 0px 0px 10px 4px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Label and input styling */
+  .form-label {
+    font-weight: 600;
+  }
+  .form-control, .form-select {
+    box-shadow: none !important;
+    border-radius: 5px;
+  }
+  

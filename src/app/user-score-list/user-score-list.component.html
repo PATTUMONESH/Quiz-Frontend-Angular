@@ -3,8 +3,35 @@
         <div class="title h1 text-center">User Score List</div>
     </div>
 
-    
+    <!-- <div class="row">
+        <div class="col-4 mb-3">
+            <input [(ngModel)]="searchTerm"  type="text" class="form-control mb-3" placeholder="search by first name or last name" >
+            <button class="btn btn-primary" (click)="searchScores()">Search</button>
+        </div>
+    </div> -->
 
+    
+    <!-- <div class="row">
+        <div class="col-4 mb-3">
+          <input type="text" class="form-control mb-3" placeholder="Search by first name" #firstNameTerm>
+        </div>
+        <div class="col-4 mb-3">
+          <input type="text" class="form-control mb-3" placeholder="Search by last name" #lastNameTerm>
+        </div>
+        <div class="col-4 mb-3">
+          <button class="btn btn-primary" (click)="search(firstNameTerm.value, lastNameTerm.value)">Search</button>
+        </div>
+      </div> -->
+
+      <div class="row">
+        <div class="col-4 mb-3">
+          <input type="text" class="form-control mb-3" placeholder="Search by first name or last name (min 3 chars)" #searchTerm>
+          <button class="btn btn-primary" (click)="search(searchTerm.value)">Search</button>
+        </div>
+      </div>
+
+
+      
     <div class="row">
         <div class="col-12">
             <table class="table table-bordered table-striped">
@@ -18,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (userScore of userScores; track $index) {
+                    @for (userScore of filteredScores; track $index) {
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ userScore.firstName }}</td>

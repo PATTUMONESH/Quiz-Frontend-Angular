@@ -1,71 +1,93 @@
-<div class="container">
-  <form [formGroup]="profileForm">
+<div class="container my-5">
+  <div class="text-center mb-4">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJM20yH-agJqq06pyg1jc1OZJ8KAAQtklhCA&s" 
+         alt="Profile Image" 
+         class="img-fluid bounce-in"
+         style="width: 150px; height: 130px; object-fit: cover;">
+  </div>
 
-    <div class="row mt-3">
-      <div class="row gy-3">
-        <div class="col-sm-4">
-          <label for="firstName" class="form-label">First Name</label>
-          <input type="text" class="form-control" id="firstName" placeholder="enter first name" aria-label="First name"
-            formControlName="firstName">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="fade-in">
+    <div class="row gy-4">
+      
+      <!-- First Row: First Name, Last Name, Gender -->
+      <div class="col-md-4">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" placeholder="Enter first name" formControlName="firstName">
+        <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched" class="text-danger">
+          First Name is required and should be at least 2 characters.
         </div>
-
-        <div class="col-sm-4">
-          <label for="lastName">Last Name</label>
-          <input type="text" class="form-control" id="lastName" placeholder="enter last name" aria-label="Last name"
-            formControlName="lastName">
+      </div>
+      
+      <div class="col-md-4">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" placeholder="Enter last name" formControlName="lastName">
+        <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched" class="text-danger">
+          Last Name is required and should be at least 2 characters.
         </div>
-
-        <div class="col-sm-4">
-          <label for="gender">Gender</label>
-          <select class="form-select" aria-label="Default select example" id="gender" formControlName="gender">
-            <option selected disabled>Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Others">Others</option>
-          </select>
-        </div>
-
-        <div class="col-sm-4">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" placeholder="enter Email" aria-label="last name"
-            formControlName="email">
-        </div>
-
-        <div class="col-sm-4">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="enter password" aria-label="Last name"
-            formControlName="password">
-        </div>
-
-        <div class="col-sm-4">
-          <label for="Phno">Phone Number</label>
-          <input type="number" id="Phno" class="form-control" placeholder="enter phno" aria-label="Phone Number"
-            formControlName="phno">
-        </div>
-
-        <div class="col-sm-4">
-          <label for="address">Address</label>
-          <textarea class="form-control" id="address" placeholder="enter address" aria-label="Address"
-            formControlName="address"></textarea>
-        </div>
-
-        <div class="col-sm-4">
-          <label for="Role">Role</label>
-          <select class="form-select" aria-label="Default select example" id="Role" formControlName="roleId">
-            <option selected disabled>Select Role</option>
-            <option value=1>User</option>
-            <!-- <option value=2>Admin</option> -->
-        
-          </select>
-        </div>
-
       </div>
 
-      <div class="row mt-2 d-flex justify-content-end">
-        <div class="col-sm-1">
-          <!-- <button type="submit" class="btn btn-primary" (click)="onRegisterForm()">Register</button> -->
-          <button type="submit" class="btn btn-primary" (click)="onSubmit()">Register</button>
+      <div class="col-md-4">
+        <label for="gender" class="form-label">Gender</label>
+        <select class="form-select" id="gender" formControlName="gender">
+          <option selected disabled>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Others">Others</option>
+        </select>
+        <div *ngIf="profileForm.get('gender')?.invalid && profileForm.get('gender')?.touched" class="text-danger">
+          Please select your gender.
         </div>
+      </div>
+      
+      <!-- Second Row: Email, Password, Phone Number -->
+      <div class="col-md-4">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" formControlName="email">
+        <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="text-danger">
+          Please provide a valid email address.
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter password" formControlName="password">
+        <div *ngIf="profileForm.get('password')?.invalid && profileForm.get('password')?.touched" class="text-danger">
+          Please provide a password.
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label for="phno" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" id="phno" placeholder="Enter phone number" formControlName="phno">
+        <div *ngIf="profileForm.get('phno')?.invalid && profileForm.get('phno')?.touched" class="text-danger">
+          Please provide a valid phone number.
+        </div>
+      </div>
+      
+      <!-- Third Row: Address, Role -->
+      <div class="col-md-8">
+        <label for="address" class="form-label">Address</label>
+        <textarea class="form-control" id="address" placeholder="Enter address" formControlName="address"></textarea>
+        <div *ngIf="profileForm.get('address')?.invalid && profileForm.get('address')?.touched" class="text-danger">
+          Please provide an address.
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label for="role" class="form-label">Role</label>
+        <select class="form-select" id="role" formControlName="roleId">
+          <option selected disabled>Select Role</option>
+          <option value="1">User</option>
+          <!-- <option value="2">Admin</option> -->
+        </select>
+        <div *ngIf="profileForm.get('roleId')?.invalid && profileForm.get('roleId')?.touched" class="text-danger">
+          Please select a role.
+        </div>
+      </div>
+
+      <!-- Submit Button Centered -->
+      <div class="col-md-12 d-flex justify-content-center mt-3">
+        <button type="submit" class="btn btn-primary glow">Register</button>
       </div>
     </div>
   </form>

@@ -4,3 +4,87 @@
 .rowHeight{
   height: 100%;
 }
+
+/* Add this to your login.component.css */
+.snackbar-error {
+  background-color: #e17068; /* Red color for error */
+  color: white;
+}
+
+
+
+
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes bounceIn {
+  from {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.fadeInDown {
+  animation-name: fadeIn;
+}
+
+.slideInUp {
+  animation-name: slideInDown;
+}
+
+.bounceIn {
+  animation-name: bounceIn;
+  animation-duration: 1.5s;
+}
+
+.pulse {
+  animation-name: pulse;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+

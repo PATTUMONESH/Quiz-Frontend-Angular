@@ -19,9 +19,41 @@ export interface QuestionUpdateDto {
   option4Type:number | null | undefined;
   answerType:number | null | undefined;
 
-
-  
 }
+
+
+
+export interface UserScore {
+  id: number;
+  firstName: string;
+  lastName: string;
+  score: number;
+  correct: number;
+  inCorrect: number;
+  notVisited: number;
+  total: number;
+  visitedQues: number;
+  scoreTimeStamp: string; 
+  userDetails: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    gender: string;
+    email: string;
+    password: string;
+    phno: number;
+    address: string;
+    role: {
+      id: number;
+      roleName: string;
+    };
+  };
+  subject: {
+    id: number;
+    subject: string;
+  };
+}
+
 
 @Injectable({
   providedIn: 'root'

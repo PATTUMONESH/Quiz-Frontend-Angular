@@ -10,6 +10,7 @@ import { QuestionsviewComponent } from './questionsview/questionsview.component'
 import { ResultComponent } from './result/result.component';
 import { exitGuard } from './exit.guard';
 import { UserScoreListComponent } from './user-score-list/user-score-list.component';
+import { AdminWelcomePageComponent } from './admin-welcome-page/admin-welcome-page.component';
 
 
 
@@ -23,6 +24,7 @@ const routes: Routes = [
  {path:"welcome",component:WelcomeComponent},
   {path:"question",component:QuestionComponent},
   {path:"viewScores",component:UserScoreListComponent},
+  {path:"adminWelcome",component:AdminWelcomePageComponent},
   {path:"result",component:ResultComponent,canDeactivate:[exitGuard]}
 ];
 
