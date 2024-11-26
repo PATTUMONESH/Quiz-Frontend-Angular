@@ -11,6 +11,15 @@
   }
   .card{
 
-    background-color: rgb(223, 219, 182);
+    background-color: rgb(238, 236, 236);
+  }
+
+  
+  .success {
+    color: green;
+  }
+  
+  .error {
+    color: red;
   }
   

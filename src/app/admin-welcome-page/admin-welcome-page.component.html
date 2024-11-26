@@ -1,39 +1,51 @@
-<div class="container-fluid mt-5 px-4">
-    <nav class="navbar navbar-expand-lg" style="background-color: rgb(45, 120, 231);">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#" style="color: white;">Your Brand</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" (click)="toAddQuestion()" style="color: white;">To Add question Type</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" (click)="toAddQuestion()" style="color: white;">To Add subject</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" (click)="toAddQuestion()" style="color: white;">To Add Question</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" (click)="viewScores()" style="color: white;">View Scores</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="mt-3">
-        <h1 class="dispaly-5 fw-bold">Welcome to the Quiz application</h1>
-        <p class="col-md-8 fs-4">This Quiz will contains total 20 questions each question holds 10 points</p>
-        <h4>Rules:</h4>
-        <ol>
-          <li>Correct Question gives you 10 points</li>
-          <li>Incorrect question gives to -5 points</li>
-          <li>You will have 60 sec to answer each question</li>
-          <li>Refereshing the page will reset the quiz</li>
-        </ol>
-        <h1 style="font-family:cursive ;text-align:center">All the best</h1>
-        <div class="d-flex justify-content-between">
-          <button class="btn btn-primary btn-large" >Start the Quiz!!!</button>
-          <!-- <button class="btn btn-primary btn-large" (click)="addQuestion()">Add Question</button> -->
-        </div>
+<div class="admin-container">
+  <!-- Animated Welcome Section -->
+  <div class="welcome-banner">
+    <h1 class="fade-in">Welcome, {{ adminData?.firstName }}!</h1>
+    <p class="fade-in delay">Massil technologies Examiner portal</p>
+  </div>
+
+  <!-- Profile Card with Flip Animation -->
+  <div class="profile-card" *ngIf="adminData; else loading">
+    <div class="profile-header">
+      <h3>Admin Profile</h3>
     </div>
+    <div class="profile-info">
+      <div class="info-item">
+        <span class="label">ID: {{ adminData.id }}</span>
+       
+      </div>
+      <div class="info-item">
+        <span class="label">First Name: {{ adminData.firstName }}</span>
+        
+      </div>
+      <div class="info-item">
+        <span class="label">Last Name: {{ adminData.lastName }}</span>
+        
+      </div>
+      <div class="info-item">
+        <span class="label">Email: {{ adminData.email }}</span>
+        
+      </div>
+      <div class="info-item">
+        <span class="label">Phone: {{ adminData.phno }}</span>
+        
+      </div>
+      <div class="info-item">
+        <span class="label">Address: {{ adminData.address }}</span>
+        
+      </div>
+      <div class="info-item">
+        <span class="label">Role: {{ adminData.role.roleName }}</span>
+       
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Template with Pulse Animation -->
+  <ng-template #loading>
+    <div class="loading-text pulse">Loading admin data...</div>
+  </ng-template>
+
+  <router-outlet></router-outlet>
 </div>

@@ -1,0 +1,21 @@
+/* app.component.css */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scroll bar on the entire page */
+    height: 100%;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+}
+
+.content {
+    flex-grow: 1; /* Expands to fill the available space */
+    overflow-y: auto; /* Adds a scroll bar only if content overflows vertically */
+    padding: 1rem; /* Optional: Adds some padding */
+    box-sizing: border-box;
+}

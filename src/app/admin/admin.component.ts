@@ -23,7 +23,6 @@ export interface DialogData {
 }
 
 
-
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -34,6 +33,21 @@ export interface DialogData {
              }]
 })
 export class AdminComponent implements OnInit {
+
+  selectedFiles: { [key: string]: File | null } = {
+    enterQuestion: null,
+    option1: null,
+    option2: null,
+    option3: null,
+    option4: null,
+  };
+  messages: { [key: string]: string } = {
+    enterQuestion: '',
+    option1: '',
+    option2: '',
+    option3: '',
+    option4: '',
+  };
 
 
 
@@ -49,10 +63,25 @@ export class AdminComponent implements OnInit {
   subjects: any[] = [];
   typeDefintions!: any[];
   selectedFile:File | null=null;
+  onSucessFileUpload:any;
     quesId:any;
   isUpdate: boolean = false;
       data:any;
       imageRef:any;
+      message:any;
+      isTouched: { [key: string]: boolean } = {};
+      questionMessage:string='';
+      option1Message:string='';
+      option2Message:string='';
+      option3Message:string='';
+      option4Message:string='';
+
+      isSuccess:boolean=false;
+      questionFile: File | null = null;
+option1File: File | null = null;
+option2File: File | null = null;
+option3File: File | null = null;
+option4File: File | null = null;
   // question: any;
   
 
@@ -70,7 +99,7 @@ export class AdminComponent implements OnInit {
     option2: ['',[Validators.required]],
     option3: ['',[Validators.required]],
     option4: ['',[Validators.required]],
-    answer: ['',[Validators.required]],
+    answer: [[Validators.required]],
     subjectselect: [null,[Validators.required]],
     QuestionTypeSelect:[null,[Validators.required]],
     option1TypeSelect:[null,[Validators.required]],
@@ -84,9 +113,14 @@ export class AdminComponent implements OnInit {
     console.log(value);
     
     this.questionsform.get('answer')?.setValue(value)
-    
- 
   }
+
+  onTouch(controlName: string): void {
+    this.isTouched[controlName] = true;
+  }
+
+
+
 
   ngOnInit(): void {
     this.questionService.getSubjectsList().subscribe((data: any[]) => {
@@ -136,20 +170,100 @@ export class AdminComponent implements OnInit {
 
  
 
-  onFileSelect(imageRef:any, event: any):void {
-    const file=event.target.files[0];
-    if(file){
-      this.selectedFile=file;
-      this.imageRef = imageRef;
-      console.log('selected file:',this.selectedFile);
-      console.log('image name:',this.imageRef);
+
+    onFileSelect(imageRef: string, event: any): void {
+      const file = event.target.files[0];
+      if (file) {
+        this.selectedFiles[imageRef] = file;
+        this.messages[imageRef] = ''; // Reset message when a file is selected
+        console.log('Selected file:', file);
+        console.log('Image name:', imageRef);
       }
+    }
+
+
+    onUpload(imageRef: string): void {
+      if (this.selectedFiles[imageRef]) {
+        //this.messages[imageRef] = 'File uploaded successfully';
+        this.uploadFile(this.selectedFiles[imageRef]!, imageRef);
+      } else {
+        this.messages[imageRef] = 'Please select the file first';
+        console.log("No file selected for:", imageRef);
+      }
+    }
+    
+
+
+    uploadFile(file: File, imageRef: string): void {
+      this.questionService.uploadImage(file).subscribe({
+        next: (res) => {
+          console.log(res);
+          
+          let imageName = res.imageName;
+          let message=res.message;
+          console.log(message);
+          this.messages[imageRef] = message;
+          let onSucessFileUpload=res.code;
+          console.log(onSucessFileUpload);
+          
+
+          this.questionsform.get(imageRef)?.setValue(imageName);
+          console.log('Image uploaded, name:', imageName);
+        },
+        error: (err) => {
+          console.error('Upload error:', err);
+        },
+      });
     }
 
 
 
 
+  // onFileSelect(imageRef:any, event: any):void {
+  //   const file=event.target.files[0];
+  //   if(file){
+  //     this.selectedFile=file;
+  //     this.imageRef = imageRef;
+  //     console.log('selected file:',this.selectedFile);
+  //     console.log('image name:',this.imageRef);
+  //     }
+  //   }
+
+
+
+   
+
+
+
+    // onUpload():void{
+      
+    //     if(this.selectedFile){
+    //         this.message='File Upload Scuccessfully';
+    //         this.isSuccess=true;
+    //         this.questionService.uploadImage(this.selectedFile).subscribe({
+    //           next:(res)=>{
+    //             let imageName= res.imageName;
+    //             console.log(imageName);
+    //             this.questionsform.get(this.imageRef)?.setValue(imageName);
+    //           }
+    //         });
+    //       }else{
+    //         this.message='Please select the file';
+    //         this.isSuccess=false;
+    //         console.log("no file selected");
+            
+    //       }
+      
+    //      }
+
+
+
+
+
+
     openDialog(imageRef: string): void {
+      
+
       let imageUrl = '';
     
       // Construct the image URL based on the selected file or stored image name
@@ -181,21 +295,7 @@ export class AdminComponent implements OnInit {
 
 
 
-   onUpload():void{
-    if(this.selectedFile){
-      this.questionService.uploadImage(this.selectedFile).subscribe({
-        next:(res)=>{
-          let imageName= res.imageName;
-          console.log(imageName);
-          this.questionsform.get(this.imageRef)?.setValue(imageName);
-        }
-      });
-    }else{
-      console.log("no file selected");
-      
-    }
-
-   }
+  
 
     onAdd() {
       const questionFormData = {

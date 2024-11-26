@@ -28,7 +28,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { UserScoreListComponent } from './user-score-list/user-score-list.component';
 import { AdminWelcomePageComponent } from './admin-welcome-page/admin-welcome-page.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { SubjectAddComponent } from './subject-add/subject-add.component';
+import { QuestionTypeComponent } from './question-type/question-type.component'; 
 
 
 @NgModule({
@@ -46,6 +49,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ResultComponent,
     UserScoreListComponent,
     AdminWelcomePageComponent,
+    SubjectAddComponent,
+    QuestionTypeComponent,
    
   ],
   imports: [

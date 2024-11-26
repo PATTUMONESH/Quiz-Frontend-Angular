@@ -1,0 +1,16 @@
+<div class="card-header">
+    <h4><b>Add Question Type</b></h4>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-8">
+<form class="p-3" [formGroup]="typeForm">
+    <label for="TypeAdd">Enter the type you want to add(image/text)</label>
+    <input type="text" class="form-control" id="TypeAdd" placeholder="enter type image/text" aria-label="TypeAdd" formControlName="typeName">
+    <button type="button" class="btn btn-primary" (click)="addType()">Add</button>
+
+</form>
+
+    </div>
+</div>

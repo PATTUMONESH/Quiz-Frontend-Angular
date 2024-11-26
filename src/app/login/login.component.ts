@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
 
       this.questionService.loginUserData(loginPayload).subscribe(
         (val: any) => {
+          console.log(val);
+          
           if (val && val.id) {
             localStorage.setItem("userIdFromBackEnd", val.id);
             localStorage.setItem("userfNameFromBackend", val.firstName);
@@ -40,6 +42,7 @@ export class LoginComponent implements OnInit {
               this.route.navigate(['/welcome']);
             } else if (roleId === 2) {
               this.route.navigate(['/adminWelcome']);
+              
             }
           }
         },

@@ -11,22 +11,30 @@ import { ResultComponent } from './result/result.component';
 import { exitGuard } from './exit.guard';
 import { UserScoreListComponent } from './user-score-list/user-score-list.component';
 import { AdminWelcomePageComponent } from './admin-welcome-page/admin-welcome-page.component';
+import { QuestionTypeComponent } from './question-type/question-type.component';
+import { SubjectAddComponent } from './subject-add/subject-add.component';
+import { authGuard } from './auth.guard';
 
 
 
+
+// app-routing.module.ts
 const routes: Routes = [
-  {path:'',redirectTo:'login',pathMatch:'full'},
-  {path:'register',component:RegisterComponent},
-  {path:'addQuestions',component:AdminComponent},
- {path:'selectsubject',component:SubjectListComponent},
-  {path:'login',component:LoginComponent},
-  {path:'viewQuestions',component:QuestionsviewComponent},
- {path:"welcome",component:WelcomeComponent},
-  {path:"question",component:QuestionComponent},
-  {path:"viewScores",component:UserScoreListComponent},
-  {path:"adminWelcome",component:AdminWelcomePageComponent},
-  {path:"result",component:ResultComponent,canDeactivate:[exitGuard]}
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'register', component: RegisterComponent },
+  { path: 'selectsubject', component: SubjectListComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'viewQuestions', component: QuestionsviewComponent },
+  { path: 'welcome', component: WelcomeComponent },
+  { path: 'question', component: QuestionComponent },
+  { path: 'result', component: ResultComponent, canDeactivate: [exitGuard] },
+  { path: 'viewScores', component: UserScoreListComponent },
+  { path: 'addQuestions', component: AdminComponent },
+  { path: 'questionType', component: QuestionTypeComponent },
+  { path: 'addSubject', component: SubjectAddComponent },
+  { path: 'adminWelcome', component: AdminWelcomePageComponent,canActivate:[authGuard] }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,0 +1,16 @@
+
+<div class="card-header">
+    <h4><b>Add Subject</b></h4>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-8">
+        <form class="p-3" [formGroup]="subjectForm">
+<label for="subjectAdd">Enter the subject you want to add</label>
+<input type="text" class="form-control" id="subjectAdd" placeholder="enter subject name" aria-label="addSubject" formControlName="subject">
+
+<button type="button" class="btn btn-primary" (click)="addSubject()">Add</button>
+        </form>
+    </div>
+
+</div>

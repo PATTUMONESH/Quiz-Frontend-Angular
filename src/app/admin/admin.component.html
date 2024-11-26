@@ -4,18 +4,7 @@
 
 <body>
 
-
-
-
-
-
-  <div class="container-fluid mt-5 px-4">
-
-    <!-- <div class="container mb-3 d-flex justify-content-end">
-      <button class="btn btn-primary" (click)="viewScores()">View Scores</button>
-
-    </div> -->
-
+  <div class="container-fluid mt-1 px-4">
 
     <div class="card">
 
@@ -50,31 +39,44 @@
                   @if(questionsform.get('enterQuestion')?.invalid && questionsform.get('enterQuestion')?.touched){
                     <p class="text-danger">
             Please enter Question
-                     
-                    </p>
-
-                  }
+                     </p>
+                       }
               </div>
               }
               @else{
               <div class="row">
                 <div class="col-sm-9 ">
-                  <input #questionImage type="file" class="form-control" id="enterQuestion"
-                    placeholder="upload question image File" (change)="onFileSelect(questionImage.id, $event)">
-                    @if(questionsform.get('enterQuestion')?.invalid&&questionsform.get('enterQuestion')?.touched){
-                      <p class="text-danger">
-                        please select file
-                      </p>
+                  <input #questionImage type="file" class="form-control" (change)="onFileSelect('enterQuestion', $event)"  (blur)="onTouch('enterQuestion')" />
 
-                    }
-                </div>
+
+
+           <p *ngIf="messages['enterQuestion'] && messages['enterQuestion']!='Please select the file first'" class="text-success">
+             {{ messages['enterQuestion'] }}
+           </p>
+           <p *ngIf="messages['enterQuestion']=='Please select the file first'" class="text-danger">
+             {{ messages['enterQuestion'] }}
+           </p>
+           <p *ngIf="!messages['enterQuestion'] && isTouched['enterQuestion']" class="text-danger">
+             Please upload a file.
+           </p>
+
+
+
+
+               </div>
                 <div class="col-sm-3">
-                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                  <button (click)="onUpload('enterQuestion')" class="btn btn-primary">Upload</button>
                   <button class="btn btn-secondary" (click)="openDialog('question')">Preview</button>
                 </div>
               </div>
               }
             </div>
+
+
+
+
+
+
 
 
 
@@ -88,6 +90,14 @@
                 <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
                   {{typeDefinition.typeName}}</option>
               </select>
+            @if(questionsform.get('QuestionTypeSelect')?.invalid && questionsform.get('QuestionTypeSelect')?.touched){
+              <p class="text-danger">
+                Please select QuestionType
+              </p>
+
+            }
+
+              
             </div>
           </div>
 
@@ -111,6 +121,12 @@
 
                 <input type="text" class="form-control" id="option1" placeholder="enter option 1"
                   aria-label="enterOption1" formControlName="option1">
+                  @if(questionsform.get('option1')?.invalid && questionsform.get('option1')?.touched){
+                    <p class="text-danger">
+                      Please enter the option 1
+                    </p>
+
+                  }
               </div>
 
               }
@@ -120,10 +136,23 @@
                 <div class="col-sm-9">
 
                   <input #option1Image type="file" class="form-control" id="option1"
-                    placeholder="upload option image file" (change)="onFileSelect(option1Image.id,$event)">
+                    placeholder="upload option image file" (change)="onFileSelect(option1Image.id,$event)"  (blur)="onTouch('option1')">
+
+                    <p *ngIf="messages['option1'] && messages['option1']!='Please select the file first'" class="text-success">
+                           {{ messages['option1'] }}
+                    </p>
+                    <p *ngIf="messages['option1']=='Please select the file first'" class="text-danger">
+                      {{ messages['option1'] }}
+                    </p>
+                    <p *ngIf="!messages['option1'] && isTouched['option1']" class="text-danger">
+                      Please upload a file.
+                    </p>
+
+
+
                 </div>
                 <div class="col-sm-3">
-                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                  <button (click)="onUpload('option1')" class="btn btn-primary">Upload</button>
                   <button class="btn btn-secondary" (click)="openDialog('option1')">Preview</button>
                 </div>
               </div>
@@ -139,6 +168,11 @@
                 <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
                   {{typeDefinition.typeName}}</option>
               </select>
+              @if(questionsform.get('option1TypeSelect')?.invalid && questionsform.get('option1TypeSelect')?.touched){
+                <p class="text-danger">
+                  Please select Option 1 Type
+                </p>
+              }
             </div>
           </div>
         </div>
@@ -164,10 +198,23 @@
                 <div class="col-sm-9">
 
                   <input #option2Image type="file" class="form-control" id="option2"
-                    placeholder="upload option 2 image file" (change)="onFileSelect(option2Image.id,$event)">
+                    placeholder="upload option 2 image file" (change)="onFileSelect(option2Image.id,$event)" (blur)="onTouch('option2')">
+
+                    <p *ngIf="messages['option2'] && messages['option2']!='Please select the file first'" class="text-success">
+                      {{ messages['option2'] }}
+                    </p>
+                    <p *ngIf="messages['option2']=='Please select the file first'" class="text-danger">
+                      {{ messages['option2'] }}
+                    </p>
+                    <p *ngIf="!messages['option2'] && isTouched['option2']" class="text-danger">
+                      Please upload a file.
+                    </p>
+                
+
+
                 </div>
                 <div class="col-sm-3">
-                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                  <button (click)="onUpload('option2')" class="btn btn-primary">Upload</button>
                   <button class="btn btn-secondary" (click)="openDialog('option2')">Preview</button>
                 </div>
               </div>
@@ -183,6 +230,11 @@
                 <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
                   {{typeDefinition.typeName}}</option>
               </select>
+              @if(questionsform.get('option2TypeSelect')?.invalid && questionsform.get('option2TypeSelect')?.touched){
+                <p class="text-danger">
+                  Please select option2 Type
+                </p>
+              }
             </div>
 
 
@@ -211,10 +263,19 @@
                 <div class="col-sm-9">
 
                   <input #option3Image type="file" class="form-control" id="option3"
-                    placeholder="upload option 3 image file" (change)="onFileSelect(option3Image.id,$event)">
+                    placeholder="upload option 3 image file" (change)="onFileSelect(option3Image.id,$event)" (blur)="onTouch('option3')">
+                    <p *ngIf="messages['option3'] && messages['option3']!='Please select the file first'" class="text-success">
+                      {{ messages['option3'] }}
+                    </p>
+                    <p *ngIf="messages['option3']=='Please select the file first'" class="text-danger">
+                      {{ messages['option3'] }}
+                    </p>
+                    <p *ngIf="!messages['option3'] && isTouched['option3']" class="text-danger">
+                      Please upload a file.
+                    </p>
                 </div>
                 <div class="col-sm-3">
-                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                  <button (click)="onUpload('option3')" class="btn btn-primary">Upload</button>
                   <button class="btn btn-secondary" (click)="openDialog('option3')">Preview</button>
                 </div>
               </div>
@@ -230,6 +291,11 @@
                 <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
                   {{typeDefinition.typeName}}</option>
               </select>
+              @if(questionsform.get('option3TypeSelect')?.invalid && questionsform.get('option3TypeSelect')?.touched){
+                <p class="text-danger">
+                  Please select option 3 Type
+                </p>
+              }
             </div>
           </div>
         </div>
@@ -253,10 +319,19 @@
                 <div class="col-sm-9">
 
                   <input #option4Image type="file" class="form-control" id="option4"
-                    placeholder="upload option 4 image file" (change)="onFileSelect(option4Image.id,$event)">
+                    placeholder="upload option 4 image file" (change)="onFileSelect(option4Image.id,$event)" (blur)="onTouch('option4')">
+                    <p *ngIf="messages['option4'] && messages['option4']!='Please select the file first'" class="text-success">
+                      {{ messages['option4'] }}
+                    </p>
+                    <p *ngIf="messages['option4']=='Please select the file first'" class="text-danger">
+                      {{ messages['option4'] }}
+                    </p>
+                    <p *ngIf="!messages['option4'] && isTouched['option4']" class="text-danger">
+                      Please upload a file.
+                    </p>
                 </div>
                 <div class="col-sm-3">
-                  <button (click)="onUpload()" class="btn btn-primary">Upload</button>
+                  <button (click)="onUpload('option4')" class="btn btn-primary">Upload</button>
                   <button class="btn btn-secondary" (click)="openDialog('option4')">Preview</button>
                 </div>
               </div>
@@ -271,6 +346,11 @@
                 <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
                   {{typeDefinition.typeName}}</option>
               </select>
+              @if(questionsform.get('option4TypeSelect')?.invalid && questionsform.get('option4TypeSelect')?.touched){
+                <p class="text-danger">
+                  Please select option 4 Type
+                </p>
+              }
             </div>
           </div>
         </div>
@@ -292,6 +372,11 @@
               <option *ngFor="let typeDefinition of typeDefintions" [value]="typeDefinition.typeId">
                 {{typeDefinition.typeName}}</option>
             </select>
+            @if(questionsform.get('answerTypeSelect')?.invalid && questionsform.get('answerTypeSelect')?.touched){
+              <p class="text-danger">
+                Please select Answer Type
+              </p>
+            }
           </div>
                   </div>
 
@@ -300,11 +385,11 @@
 
                     @if(isUpdate){
                     <button type="submit" class="btn btn-primary" (click)="updateQuestion(quesId)">Update question</button>
-                    <button type="button" class="btn btn-primary" (click)="onView()">View Questions</button>
+                    <!-- <button type="button" class="btn btn-primary" (click)="onView()">View Questions</button> -->
                     }
                     @else {
                     <button type="submit" class="btn btn-primary" (click)="onAdd()">Add question</button>
-                    <button type="button" class="btn btn-primary" (click)="onView()">View Questions</button>
+                    <!-- <button type="button" class="btn btn-primary" (click)="onView()">View Questions</button> -->
                     }
           
                   </div>

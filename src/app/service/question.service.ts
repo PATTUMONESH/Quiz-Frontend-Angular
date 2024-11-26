@@ -80,7 +80,20 @@ export class QuestionService {
 
   addQuestion(inputFromAdmin: any) {
     console.log(inputFromAdmin);
-    return this.httpClient.post(`${this.baseURL}/addQuestions`, inputFromAdmin)
+    return this.httpClient.post(`${this.baseURL}/addQuestions`, inputFromAdmin);
+  }
+
+
+  addSubject(subjectData:any){
+    console.log(subjectData);
+    return this.httpClient.post(`${this.baseURL}/addSubject`,subjectData);
+    
+  }
+
+  addType(typeData:any){
+    console.log(typeData);
+    return this.httpClient.post(`${this.baseURL}/addType`,typeData);
+    
   }
 
 
@@ -97,9 +110,14 @@ export class QuestionService {
     );
   }
 
+ 
+
   getSubjectsList(): Observable<any[]> {
     return this.httpClient.get<any[]>(`${this.baseURL}/getAllSubjects`);
   }
+
+
+ 
 
   getUserScores():Observable<any[]>{
     return this.httpClient.get<any[]>(`${this.baseURL}/getAllUserScores`);
@@ -116,6 +134,14 @@ export class QuestionService {
     })
     return this.httpClient.post<any>(`${this.baseURL}/checkAnswer`, null, { headers: headers, params: params })
   }
+
+
+  getAdminById(id:any):Observable<any[]>{
+ const params=new HttpParams().set('id',id)
+   const url = `${this.baseURL}/adminById`;
+    return this.httpClient.get<any>(url,{params});
+  }
+
 
   deleteQuestion(id: number): Observable<any> {
     const headers = new HttpHeaders({
