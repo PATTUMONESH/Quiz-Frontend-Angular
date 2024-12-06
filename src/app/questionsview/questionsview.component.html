@@ -1,8 +1,10 @@
-<div class="container py-3">
+<!-- <div class="container py-3">
     <div class="row">
         <div class="title h1 text-center">Java Questions</div>
     </div>
-    <!-- Card Start -->
+    
+
+
     <div class="row gy-3">
         @for(question of questions;track $index){
 
@@ -42,13 +44,68 @@
         }
         
     </div>
-    <!-- End of card -->
+    
     <div class="row d-flex justify-content-end mt-3">
         <button type="submit" class="btn btn-primary" (click)="adminLogout()">Please Click here to go back login page</button>
     </div>
 </div>
-<mat-paginator [length]="100"
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-              aria-label="Select page">
-</mat-paginator>
+ -->
+
+
+ <div class="container py-3">
+    <div class="row">
+      <div class="title h1 text-center">Java Questions</div>
+    </div>
+    
+    <!-- Questions List -->
+    <div class="row gy-3">
+      <div *ngFor="let question of questions; let i = index" class="col-md-12 p-3 card">
+        <div class="card-block px-6">
+          <!-- Question Display -->
+          <p class="card-text">
+            <span *ngIf="question.questionType === 2">
+              {{ (i + 1) + pageIndex * pageSize }}. {{ question.question }}
+            </span>
+            <span *ngIf="question.questionType !== 2">
+              {{ (i + 1) + pageIndex * pageSize }}.
+              <img [src]="baseURL + question.question" alt="image not found" width="550px" height="250px" />
+            </span>
+          </p>
+  
+          <!-- Answer Display -->
+          <p class="card-text">
+            <span *ngIf="question.answerType === 2">
+              A. {{ question.answer }}
+            </span>
+            <span *ngIf="question.answerType !== 2">
+              A. <img [src]="baseURL + question.answer" alt="image not found" width="110px" />
+            </span>
+          </p>
+  
+          <!-- Action Buttons -->
+          <div class="d-flex justify-content-end gap-2">
+            <button class="btn btn-primary" (click)="update(question)">Update</button>
+            <button class="btn btn-danger d-flex justify-content-end" (click)="deleteQuestion(question.quesid)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Paginator -->
+    <mat-paginator
+      [length]="totalQuestions"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="handlePageEvent($event)"
+      class="mt-3"
+    >
+    </mat-paginator>
+  
+    <!-- Logout Button -->
+    <div class="row d-flex justify-content-end mt-3">
+      <button type="submit" class="btn btn-primary" (click)="adminLogout()">Please Click here to go back login page</button>
+    </div>
+  </div>
+  

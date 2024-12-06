@@ -165,9 +165,25 @@ export class QuestionService {
     return this.httpClient.get<any[]>(`${this.baseURL}/getAllQuestionsForUser`);
   }
 
-  getTotalQuestions(): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.baseURL}/getAllQuestionsForAdmin`);
+
+
+
+  // getTotalQuestions(): Observable<any[]> {
+  //   return this.httpClient.get<any[]>(`${this.baseURL}/getAllQuestionsForAdmin`);
+  // }
+
+
+
+  getTotalQuestions(page: number, size: number): Observable<any> {
+    return this.httpClient.get<any>(
+      `${this.baseURL}/getAllQuestionsForAdmin?page=${page}&size=${size}`
+    );
   }
+  
+
+
+
+
 
   loginUserData(dataFromLoginForm: any) {
     console.log(dataFromLoginForm);
