@@ -14,8 +14,11 @@ export class QuestionsviewComponent implements OnInit {
   
   questions: any = [];
   totalQuestions: number = 0; // Total number of questions from backend
-  pageSize: number = 10; // Number of questions per page
+  pageSize: number = 5; // Number of questions per page
   pageIndex: number = 0; // Current page index
+
+
+
 
 
 constructor(private route: Router, private questionService: QuestionService) {}
@@ -26,6 +29,26 @@ constructor(private route: Router, private questionService: QuestionService) {}
 adminLogout(){
   this.route.navigate(['/login']);
 }
+
+ngOnInit(): void {
+  this.loadQuestions(this.pageIndex, this.pageSize);
+}
+
+handlePageEvent(event: PageEvent): void {
+  this.pageIndex = event.pageIndex;
+  this.pageSize = event.pageSize;
+  this.loadQuestions(this.pageIndex, this.pageSize); // Load questions for the new page
+}
+
+  
+
+  loadQuestions(page: number, size: number) {
+    this.questionService.getTotalQuestions(page, size).subscribe((response: any) => {
+      this.questions = response.content; // Content of the current page
+      this.totalQuestions = response.totalElements; // Total number of questions
+      console.log(this.questions);
+    });
+  }
 
   // loadQuestions(){
   //   this.questionService.getTotalQuestions().subscribe((data: any[]) => {
@@ -45,26 +68,10 @@ adminLogout(){
   //     return false;
   //   }
   // }
-
-  loadQuestions(page: number, size: number) {
-    this.questionService.getTotalQuestions(page, size).subscribe((response: any) => {
-      this.questions = response.content; // Content of the current page
-      this.totalQuestions = response.totalElements; // Total number of questions
-      console.log(this.questions);
-    });
-  }
  
 
 
-  ngOnInit(): void {
-    this.loadQuestions(this.pageIndex, this.pageSize);
-  }
-
-  handlePageEvent(event: PageEvent): void {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.loadQuestions(this.pageIndex, this.pageSize); // Load questions for the new page
-  }
+ 
 
 
   deleteQuestion(id: number): void {

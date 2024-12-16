@@ -7,7 +7,16 @@ import { Router } from '@angular/router';
 export class NavigateService {
 
   constructor(private router: Router) {}
-redirectToLogin() {
-    this.router.navigate(['/login']);
+        redirectToLogin() {
+        this.router.navigate(['/login']);
   }
+
+isLoggedIn():boolean{
+  return !!localStorage.getItem('userIdFromBackEnd')
+}
+
+logout():void{
+  localStorage.removeItem('userIdFromBackEnd')
+}
+
 }

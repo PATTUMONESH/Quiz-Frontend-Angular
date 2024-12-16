@@ -21,4 +21,11 @@ export class WelcomeComponent implements OnInit {
   startQuiz(){
     this.route.navigate(['/question'])
   }
+
+
+  logout(): void {
+    localStorage.removeItem('authToken');
+    this.route.navigate(['/login']);
+  }
+  
 }

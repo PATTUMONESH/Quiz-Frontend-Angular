@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("userRoleFromBackend", val.role.id);
 
             const roleId = val.role.id;
+            console.log('Navigating based on role ID:', roleId);
             if (roleId === 1) {
               this.route.navigate(['/welcome']);
             } else if (roleId === 2) {
@@ -55,6 +56,10 @@ export class LoginComponent implements OnInit {
       );
     }
   }
+
+
+  
+
 
   // Method to show the error message in a snackbar
   showErrorMessage(message: string) {

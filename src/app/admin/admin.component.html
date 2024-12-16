@@ -19,6 +19,7 @@
             formControlName="subjectselect">
             <option selected disabled>Select Technology</option>
             <option *ngFor="let subjectValue of subjects" [value]="subjectValue.id">{{subjectValue.subject}}</option>
+            
           </select>
           @if(questionsform.get('subjectselect')?.invalid && questionsform.get('subjectselect')?.touched){
             <p class="text-danger">

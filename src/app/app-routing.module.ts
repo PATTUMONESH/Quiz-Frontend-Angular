@@ -14,6 +14,7 @@ import { AdminWelcomePageComponent } from './admin-welcome-page/admin-welcome-pa
 import { QuestionTypeComponent } from './question-type/question-type.component';
 import { SubjectAddComponent } from './subject-add/subject-add.component';
 import { authGuard } from './auth.guard';
+import { authServiceGuard } from './auth-service.guard';
 
 
 
@@ -21,13 +22,16 @@ import { authGuard } from './auth.guard';
 // app-routing.module.ts
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+ // {path:'**',redirectTo:'login'},
   { path: 'register', component: RegisterComponent },
   { path: 'selectsubject', component: SubjectListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'viewQuestions', component: QuestionsviewComponent },
-  { path: 'welcome', component: WelcomeComponent },
-  { path: 'question', component: QuestionComponent },
-  { path: 'result', component: ResultComponent, canDeactivate: [exitGuard] },
+  { path: 'welcome', component: WelcomeComponent,canActivate:[authServiceGuard] },
+  { path: 'question', component: QuestionComponent,canActivate:[authServiceGuard]  },
+{ path: 'result', component: ResultComponent, canActivate: [authServiceGuard] },
+//{ path: 'result', component: ResultComponent, canDeactivate: [exitGuard] },
+
   { path: 'viewScores', component: UserScoreListComponent },
   { path: 'addQuestions', component: AdminComponent },
   { path: 'questionType', component: QuestionTypeComponent },

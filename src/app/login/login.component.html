@@ -34,11 +34,11 @@
           </div>
 
           <div class="mt-4 d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary w-100 animated pulse">Sign In</button>
+            <button type="submit" class="btn btn-primary w-100 animated pulse" [disabled]="loginForm.invalid">Sign In</button>
           </div>
 
           <div class="mt-2 d-flex justify-content-center">
-            <p>Not yet registered? <a routerLink="/register"  >Sign Up</a></p>
+            <p>Not yet registered? <a routerLink="/register">Sign Up</a></p>
           </div>
         </div>
       </form>
