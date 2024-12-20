@@ -36,6 +36,20 @@ isQuizCompleted: boolean = false;
 
   constructor(private questionService: QuestionService, private route: Router,private quizResultsService:QuizResultServiceService,private questionListLengthService:SharedQuizService) { }
   ngOnInit(): void {
+
+    window.addEventListener('beforeunload',(event)=>{
+      event.preventDefault();
+      event.returnValue=''; // Show a confirmation dialog in supported browsers
+    })
+
+    //prevent back navigation
+    history.pushState(null,'',location.href);
+    window.onpopstate =()=>{
+      history.pushState(null,'',location.href);
+      alert('Back navigation is disabled');
+
+    }
+
     this.userName = localStorage.getItem('name')!;
     this.userId=localStorage.getItem('userIdFromBackEnd');
     console.log(this.userId);

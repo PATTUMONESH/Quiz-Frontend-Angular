@@ -23,6 +23,18 @@ export class ResultComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+    window.addEventListener('beforeunload',(event)=>{
+      event.preventDefault();
+      event.returnValue=''; // Show a confirmation dialog in supported browsers
+    })
+    //prevent back navigation
+    history.pushState(null,'',location.href);
+    window.onpopstate =()=>{
+      history.pushState(null,'',location.href);
+      alert('Back navigation is disabled');
+    }
+
 this.questionListLength=this.questionLengtSignal.getQuestionListLength();
    this.quizResults=this.quizResultsService.getQuizResults();
    console.log(this.quizResults);
@@ -37,6 +49,7 @@ this.questionListLength=this.questionLengtSignal.getQuestionListLength();
  
  onLogout() {
  localStorage.clear();
+ sessionStorage.clear();
   this.route.navigate(['/login']);
 }
 

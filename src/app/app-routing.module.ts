@@ -15,6 +15,7 @@ import { QuestionTypeComponent } from './question-type/question-type.component';
 import { SubjectAddComponent } from './subject-add/subject-add.component';
 import { authGuard } from './auth.guard';
 import { authServiceGuard } from './auth-service.guard';
+import { exitServeGuard } from './exit-serve.guard';
 
 
 
@@ -29,7 +30,7 @@ const routes: Routes = [
   { path: 'viewQuestions', component: QuestionsviewComponent },
   { path: 'welcome', component: WelcomeComponent,canActivate:[authServiceGuard] },
   { path: 'question', component: QuestionComponent,canActivate:[authServiceGuard]  },
-{ path: 'result', component: ResultComponent, canActivate: [authServiceGuard] },
+{ path: 'result', component: ResultComponent, canActivate: [authServiceGuard],canDeactivate:[exitServeGuard] },
 //{ path: 'result', component: ResultComponent, canDeactivate: [exitGuard] },
 
   { path: 'viewScores', component: UserScoreListComponent },

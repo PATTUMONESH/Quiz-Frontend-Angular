@@ -8,13 +8,27 @@ import { Router } from '@angular/router';
 })
 export class WelcomeComponent implements OnInit {
 
+  // @ViewChild('name') nameKey!:ElementRef;
 
 
   constructor(private route: Router) { }
 
-  // @ViewChild('name') nameKey!:ElementRef;
   ngOnInit(): void {
+    //prevent back navigation
+    history.pushState(null,'',location.href);
+    window.onpopstate =()=>{
+      history.pushState(null,'',location.href);
+      alert('Back navigation is disabled');
+    }
+
+    
   }
+
+
+
+
+
+
   addQuestion() {
     this.route.navigate(['/addQuestions'], { state: { action: "create" } })
   }

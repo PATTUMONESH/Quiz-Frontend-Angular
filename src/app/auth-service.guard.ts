@@ -8,6 +8,12 @@ export const authServiceGuard: CanActivateFn = (route, state) => {
 
   // Check if the user is logged in
   if (navigateService.isLoggedIn()) {
+    const userRole=localStorage.getItem('userRoleFromBackend');
+    const isAdminRoute=state.url.includes('/adminWelcome');
+    if(isAdminRoute && userRole !=='2'){
+      router.navigate(['/welcome']);
+      return false;
+    }
     return true; // Allow navigation
   }
 
