@@ -23,7 +23,7 @@ export class QuestionsviewComponent implements OnInit {
 
 constructor(private route: Router, private questionService: QuestionService) {}
 
- baseURL = "http://localhost:8080/getImage?imageName="
+ baseURL = "http://localhost:9090/getImage?imageName="
 
 
 adminLogout(){

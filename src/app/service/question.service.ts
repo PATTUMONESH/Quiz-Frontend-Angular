@@ -61,7 +61,7 @@ export interface UserScore {
 export class QuestionService {
 
   
-  baseURL = "http://localhost:8080";
+  baseURL = "http://localhost:9090";
   constructor(private httpClient: HttpClient) { }
 
   getQuestionJson() {

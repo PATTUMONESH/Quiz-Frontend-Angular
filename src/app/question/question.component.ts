@@ -11,7 +11,7 @@ import { SharedQuizService } from '../shared-quiz.service';
 })
 export class QuestionComponent implements OnInit {
 
-baseURL="http://localhost:8080/getImage?imageName=";
+baseURL="http://localhost:9090/getImage?imageName=";
 
   userId?:any;
    userName: string = '';
@@ -42,6 +42,7 @@ isQuizCompleted: boolean = false;
       event.returnValue=''; // Show a confirmation dialog in supported browsers
     })
 
+    
     //prevent back navigation
     history.pushState(null,'',location.href);
     window.onpopstate =()=>{
@@ -53,31 +54,55 @@ isQuizCompleted: boolean = false;
     this.userName = localStorage.getItem('name')!;
     this.userId=localStorage.getItem('userIdFromBackEnd');
     console.log(this.userId);
-    this.questionService.getQuestionsList().subscribe((data: any[]) => {
-   // this.questionList = data;
-   this.questionList=this.shuffleArray(data);
-   console.log(this.questionList);
+
+
+
+
+//     this.questionService.getQuestionsList().subscribe((data: any[]) => {
+//     // this.questionList = data;
+//      this.questionList=this.shuffleArray(data);
+
+//     // console.log(this.questionList);
    
-   this.subjectId = this.questionList[0].subjectId;
-   // Shuffle options for each question
-    this.questionList.forEach((question: { option1: any; option2: any; option3: any; option4: any; }) => {
-      const options = [
-        question.option1,
-        question.option2,
-        question.option3,
-        question.option4
-      ];
-      const shuffledOptions = this.shuffleArray(options);
-      question.option1 = shuffledOptions[0];
-      question.option2 = shuffledOptions[1];
-      question.option3 = shuffledOptions[2];
-      question.option4 = shuffledOptions[3];
-    });
- this.startTimer();
-})
+//    this.subjectId = this.questionList[0].subjectId;
+//    // Shuffle options for each question
+//     this.questionList.forEach((question: { option1: any; option2: any; option3: any; option4: any; }) => {
+//       const options = [
+//         question.option1,
+//         question.option2,
+//         question.option3,
+//         question.option4
+//       ];
+//       const shuffledOptions = this.shuffleArray(options);
+//       question.option1 = shuffledOptions[0];
+//       question.option2 = shuffledOptions[1];
+//       question.option3 = shuffledOptions[2];
+//       question.option4 = shuffledOptions[3];
+//     });
+//  this.startTimer();
+// })
+
+
+this.questionService.getQuestionsList().subscribe((data: any[]) => {
+  this.questionList = data;  // Directly subscribe to backend response
+
+  // Assign subjectId if necessary
+  this.subjectId = this.questionList[0]?.subjectId;
+
+  // Start the timer without any frontend shuffling logic
+  this.startTimer();
+});
+
+
+
+
   }
   
    
+
+
+
+
  
   
 

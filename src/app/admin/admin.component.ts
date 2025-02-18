@@ -57,7 +57,7 @@ export class AdminComponent implements OnInit {
 
 
 // }
-  baseURL = "http://localhost:8080/getImage?imageName="
+  baseURL = "http://localhost:9090/getImage?imageName="
 
   uploadedFile: any;
   subjects: any[] = [];
@@ -386,7 +386,7 @@ updateQuestion(quesId: any): void {
 })
 
 export class ImageDialogExample {
-baseURL = "http://localhost:8080/getImage?imageName="
+baseURL = "http://localhost:9090/getImage?imageName="
   constructor(
     public dialogRef: MatDialogRef<ImageDialogExample>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,

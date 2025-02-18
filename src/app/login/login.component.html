@@ -7,13 +7,13 @@
       <div class="text-center mb-4">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJM20yH-agJqq06pyg1jc1OZJ8KAAQtklhCA&s" 
              alt="no image" 
-             class="img-fluid animated bounceIn" 
+             class="img-fluid animated bounceIn " 
              style="width: 150px; height: 130px; object-fit: cover;">
       </div>
 
       <!-- Login Form -->
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-        <div class="card p-4 animated slideInUp"> <!-- Animation class added here -->
+        <div class="card p-4 animated slideInUp loginImage"> <!-- Animation class added here -->
           <label for="inputEmail4" class="form-label">Email</label> 
           <input type="email" class="form-control" placeholder="Enter your email" id="inputEmail4" formControlName="email">
           
